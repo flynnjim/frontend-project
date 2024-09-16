@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material"
-import Box from "@mui/material/Box";
 import HeaderBox from "../styles/headerStyles";
 
 const Header = () => {

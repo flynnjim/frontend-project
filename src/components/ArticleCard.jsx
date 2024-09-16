@@ -1,20 +1,7 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-
-const typographySX = {
-    width: '100%',
-    textAlign: 'left',
-    margin: '5px',
-    backgroundColor:
-    '#F5EEE6',
-    borderRadius: 0.8,
-
-}
+import {ArticleCardTypography, ArticleCardContent, ArticleCardAction, ArticleCardContainer, ArticleHeader} from "../styles/ArticleCardStyles";
 
 function ArticleCard({
     article_img_url,
@@ -26,42 +13,37 @@ function ArticleCard({
 }) {
     
       return (
-    <Card sx={{
-        width: 410,
-        marginBottom: 2,
-        }}
-        >
-
-        <CardContent sx={{border: '1px dashed black', backgroundColor: '#F3D7CA'}}>
-        <Typography gutterBottom variant="body2" component="div" sx={{textAlign: 'left',}}>
+    <ArticleCardContainer   >
+        <ArticleCardContent>
+        <ArticleHeader gutterBottom variant="body2" component="div">
          Topic: {topic}
-        </Typography>
-        <Typography gutterBottom variant="h5" component="div" sx={{textAlign: 'left'}}>
+        </ArticleHeader>
+        <ArticleHeader gutterBottom variant="h5" component="div">
           {title}
-        </Typography>
-        </CardContent>
+        </ArticleHeader>
+        </ArticleCardContent>
         
-      <CardMedia sx={{ aspectRatio: 1 / 1 }} image={article_img_url} />
+      <CardMedia sx={{ aspectRatio: 1 / 1, }} image={article_img_url} />
 
-      <CardContent sx={{border: '1px dashed black', backgroundColor: '#F3D7CA'}}>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+      <ArticleCardContent >
+        <Box sx={{ display: 'flex', flexWrap: 'wrap'}}>
 
-        <Typography gutterBottom variant="body2" component="div" sx={typographySX}>
+        <ArticleCardTypography gutterBottom variant="body2" component="div" >
           written by {author}
-        </Typography>
-        <Typography gutterBottom variant="body2" component="div" sx={typographySX}>
+        </ArticleCardTypography>
+        <ArticleCardTypography gutterBottom variant="body2" component="div">
          Comments: {comment_count}
-        </Typography>
-        <Typography gutterBottom variant="body2" component="div" sx={typographySX}>
+        </ArticleCardTypography>
+        <ArticleCardTypography gutterBottom variant="body2" component="div" >
           Time created: {created_at}
-        </Typography>
+        </ArticleCardTypography>
         </Box>
-      </CardContent>
+      </ArticleCardContent>
 
-      <CardActions sx={{border: '1px dashed black', backgroundColor: '#C9DABF'}}>
-        <Button sx={{backgroundColor: '#F5EEE6'}}>More detail</Button>
-      </CardActions>
-    </Card>
+      <ArticleCardAction>
+        <Button sx={{backgroundColor: '#F5EEE6'}}>See more info</Button>
+      </ArticleCardAction>
+    </ArticleCardContainer>
   );
 }
 
