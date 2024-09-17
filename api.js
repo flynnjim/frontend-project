@@ -15,7 +15,15 @@ export const getCurrentArticle = (article_id) => {
   return ncnewsApi
       .get(`/articles/${article_id}`)
       .then(({data}) => {
-        // console.log(data);
+        return data
+      })
+}
+
+export const getComments = (article_id) => {
+  
+  return ncnewsApi
+      .get(`/articles/${article_id}/comments`)
+      .then(({data}) => {
         return data
       })
 }
