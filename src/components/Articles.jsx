@@ -13,7 +13,8 @@ const Articles = () => {
         created_at:'',
         title: '',
         topic:'',
-        article_id: ''
+        article_id: '',
+        votes: 0
           }])
 
         const [isPageLoading, setIsPageLoading] = useState(true)
@@ -23,13 +24,14 @@ const Articles = () => {
         getAllArticles()
         .then((articles) => {
             setArticlesData(articles)
+            console.log(articles)
         })
         .finally(() => {
             setIsPageLoading(false)
         })
     }, [])
     if (isPageLoading) {
-        return (<h1>Page loading....</h1>)
+        return (<h1>Page is loading....</h1>)
     }
      else {
 
@@ -54,6 +56,7 @@ const Articles = () => {
                     title={article.title}
                     topic={article.topic}
                     article_id={article.article_id}
+                    votes={article.votes}
                     />
                 </li>
             )
