@@ -16,7 +16,7 @@ const ArticleSingleCard = () => {
       });
 
     const {article_id} = useParams()
-    
+
     useEffect(() => {
     getCurrentArticle(article_id)
         .then(({article}) => {
@@ -30,7 +30,7 @@ const ArticleSingleCard = () => {
         author={currentArticle.author}
         comment_count={currentArticle.comment_count}
         created_at={currentArticle.created_at}
-        title={currentArticle.created_at}
+        title={currentArticle.title}
         topic={currentArticle.topic}
         article_id={currentArticle.article_id}
         body={currentArticle.body}
