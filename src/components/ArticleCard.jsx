@@ -7,6 +7,9 @@ import { getComments } from "../../api";
 import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
 import { voteComment } from "../../api";
+import HeaderBox from "../styles/headerStyles";
+import TextField from "@mui/material/TextField";
+import { addComment } from "../../api";
 
 const ArticleCard = ({
     article_img_url,
@@ -31,6 +34,39 @@ const ArticleCard = ({
     const [isLoadingComments, setIsLoadingComments] = useState(false)
     const [currentVotes, setCurrentVotes] = useState(votes)
     const [buttonVoteDisabled, setButtonVoteDisabled] = useState(false)
+    const [commentFormOpen, setCommentFormOpen] = useState(false)
+    const [usernameForm, setUsernameForm] = useState('')
+    const [commentBodyForm, setCommentBodyForm] = useState('')
+    const [errorSubmitting, setErrorSubmitting] = useState(false)
+
+
+    const submitComment = () => {
+
+      
+      addComment(article_id, usernameForm, commentBodyForm)
+        .then((response) => {   
+          setErrorSubmitting(false)
+
+        })
+        .catch((err) => {
+
+          setErrorSubmitting(true)
+        })
+    }
+
+    const handleCommentBodyChange = (event) => {
+      setCommentBodyForm(event.target.value)
+
+    }
+
+    const handleUserNamechange = (event) => {
+      setUsernameForm(event.target.value)
+      
+    }
+
+  const openCommentForm = () => {
+      setCommentFormOpen(!commentFormOpen)
+  }
 
  
   const addVote = () => {
@@ -129,8 +165,46 @@ const ArticleCard = ({
                 <NavButton onClick={addVote} disabled={buttonVoteDisabled}>
                  Vote article
                 </NavButton>
+                <NavButton onClick={openCommentForm} disabled={false}>
+                 Write Comment
+                </NavButton>
                
               </ArticleCardAction>
+
+              {commentFormOpen? (
+                <>
+                <HeaderBox sx={{display: 'flex', flexDirection: 'column'}} component="form" noValidate autoComplete="off">
+
+                  <h1>comment form</h1>
+                  <TextField
+                    required
+                    id="user-name-input"
+                    label="user name"
+                    onChange={handleUserNamechange}
+                  />
+                  <TextField
+                    required
+                    id="body-input"
+                    label="comment text"
+                    onChange={handleCommentBodyChange}
+                    multiline
+                    maxRows={5}
+                  />
+
+                  {errorSubmitting? (
+                    <ArticleCardTypography gutterBottom variant="body2" component="div" >
+                    Error submitting form, check username is correct and try again
+                  </ArticleCardTypography>
+                  ): null}
+                </HeaderBox>
+
+                <HeaderBox>
+                  <NavButton onClick={submitComment} disabled={false}>
+                 Submit comment
+                </NavButton>
+                </HeaderBox>
+                </>
+              ): null}
               {!commentsFound? (
 
               <ArticleCardTypography gutterBottom variant="body2" component="div" >
