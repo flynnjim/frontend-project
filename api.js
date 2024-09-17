@@ -28,3 +28,13 @@ export const getComments = (article_id) => {
       })
 
 }
+
+export const voteComment = (article_id) => {
+  
+  return ncnewsApi
+    .patch(`/articles/${article_id}`, { inc_votes: 1 })
+    .then((response) => {
+      console.log(response);
+      
+    })
+}

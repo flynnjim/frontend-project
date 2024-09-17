@@ -6,6 +6,7 @@ import {ArticleCardTypography, ArticleCardContent, ArticleCardAction, ArticleCar
 import { getComments } from "../../api";
 import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
+import { voteComment } from "../../api";
 
 const ArticleCard = ({
     article_img_url,
@@ -15,7 +16,8 @@ const ArticleCard = ({
     title,
     topic,
     article_id,
-    body
+    body,
+    votes
 }) => {
 
   
@@ -27,9 +29,25 @@ const ArticleCard = ({
     const [buttonDisplay, setButtonDisplay] = useState('Display Comments')
     const [commentsFound, setCommentsFound] = useState(true)
     const [isLoadingComments, setIsLoadingComments] = useState(false)
+    const [currentVotes, setCurrentVotes] = useState(votes)
+    const [buttonVoteDisabled, setButtonVoteDisabled] = useState(false)
 
  
+  const addVote = () => {
+    setButtonVoteDisabled(true)
+    const updatedVotes = currentVotes + 1
+    setCurrentVotes(updatedVotes)
 
+      voteComment(article_id)
+        .then((response) => {
+        })
+        .catch((err) => {
+          setCurrentVotes(currentVotes)
+        })
+        .finally(() => {
+          setButtonVoteDisabled(false)
+        })
+  }
 
 
     const getArticleComments = () => {
@@ -81,6 +99,9 @@ const ArticleCard = ({
         <ArticleCardTypography gutterBottom variant="body2" component="div" >
           Time created: {formatDate}
         </ArticleCardTypography>
+        <ArticleCardTypography gutterBottom variant="body2" component="div" >
+          Votes: {currentVotes}
+        </ArticleCardTypography>
         </Box>
       </ArticleCardContent>
 
@@ -105,6 +126,10 @@ const ArticleCard = ({
                 <NavButton onClick={getArticleComments} disabled={isLoadingComments}>
                 {buttonDisplay}
                 </NavButton>
+                <NavButton onClick={addVote} disabled={buttonVoteDisabled}>
+                 Vote article
+                </NavButton>
+               
               </ArticleCardAction>
               {!commentsFound? (
 

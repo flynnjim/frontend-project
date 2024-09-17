@@ -12,7 +12,8 @@ const ArticleSingleCard = () => {
     created_at:'',
     title: '',
     topic:'',
-    article_id: ''
+    article_id: '',
+    votes: 0
       });
 
     const {article_id} = useParams()
@@ -33,7 +34,7 @@ const ArticleSingleCard = () => {
     }, [article_id])
 
     if(isPageLoading) {
-        return (<h1>Page is loading...</h1>)
+        return (<h1>Article is loading...</h1>)
     } else {
 
  
@@ -47,6 +48,7 @@ const ArticleSingleCard = () => {
         topic={currentArticle.topic}
         article_id={currentArticle.article_id}
         body={currentArticle.body}
+        votes={currentArticle.votes}
         />
     )
     }
