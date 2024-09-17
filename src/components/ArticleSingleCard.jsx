@@ -17,13 +17,26 @@ const ArticleSingleCard = () => {
 
     const {article_id} = useParams()
 
+    const [isPageLoading, setIsPageLoading] = useState(true)
+
+
     useEffect(() => {
+    setIsPageLoading(true)
+
     getCurrentArticle(article_id)
         .then(({article}) => {
             setCurrentArticle(article)
         })
+        .finally(() => {
+        setIsPageLoading(false)
+        })
     }, [article_id])
 
+    if(isPageLoading) {
+        return (<h1>Page is loading...</h1>)
+    } else {
+
+ 
     return (
         <ArticleCard
         article_img_url={currentArticle.article_img_url}
@@ -36,6 +49,7 @@ const ArticleSingleCard = () => {
         body={currentArticle.body}
         />
     )
+    }
 }
 
 export default ArticleSingleCard

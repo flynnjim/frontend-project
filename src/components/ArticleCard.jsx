@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import NavButton from "../styles/NavButton";
 import {ArticleCardTypography, ArticleCardContent, ArticleCardAction, ArticleCardContainer, ArticleHeader} from "../styles/ArticleCardStyles";
 import { getComments } from "../../api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
 
 const ArticleCard = ({
@@ -25,27 +25,33 @@ const ArticleCard = ({
     const [articleComments, setArticleComments] = useState([])
     const [displayComments, setDisplayComments] = useState(false)
     const [buttonDisplay, setButtonDisplay] = useState('Display Comments')
-    const [commentsFound, setCommentsFound] = useState(false)
+    const [commentsFound, setCommentsFound] = useState(true)
+    const [isLoadingComments, setIsLoadingComments] = useState(false)
+
+ 
+
+
 
     const getArticleComments = () => {
+      setIsLoadingComments(true)
 
-      getComments(article_id)
-        .then((response) => {
-          if (response.status === 404) {
-            setCommentsFound(false)
-            setButtonDisplay('no comments found')
-          } else {
+        getComments(article_id)
+          .then((response) => {
+  
             setCommentsFound(true)
             setArticleComments(response)
             setDisplayComments(!displayComments)
-            if (buttonDisplay === 'no comments found') {
-              setButtonDisplay("Hide comments" )
-            } else {
-              setButtonDisplay(buttonDisplay === "Hide comments" ? 'Display Comments': "Hide comments" )
-            }
-            
-          }
-        })
+            setButtonDisplay(buttonDisplay === "Hide comments" ? 'Display Comments': "Hide comments" )
+              
+              
+          })
+          .catch((err) => {
+            setCommentsFound(false)
+          })
+          .finally(() => {
+            setIsLoadingComments(false)
+          })
+ 
       
     }
 
@@ -96,10 +102,22 @@ const ArticleCard = ({
               </ArticleCardContent>
 
               <ArticleCardAction>
-                <NavButton onClick={getArticleComments}>
+                <NavButton onClick={getArticleComments} disabled={isLoadingComments}>
                 {buttonDisplay}
                 </NavButton>
               </ArticleCardAction>
+              {!commentsFound? (
+
+              <ArticleCardTypography gutterBottom variant="body2" component="div" >
+                no comments found
+              </ArticleCardTypography>
+              ): null}
+
+            {isLoadingComments ? (
+            <ArticleCardTypography gutterBottom variant="body2" component="div">
+              Loading comments...
+            </ArticleCardTypography>
+          ) : null}
 
               {displayComments && commentsFound ? (
                 <>

@@ -16,13 +16,24 @@ const Articles = () => {
         article_id: ''
           }])
 
+        const [isPageLoading, setIsPageLoading] = useState(true)
+
     useEffect(() => {
+        setIsPageLoading(true)
         getAllArticles()
         .then((articles) => {
             setArticlesData(articles)
         })
+        .finally(() => {
+            setIsPageLoading(false)
+        })
     }, [])
+    if (isPageLoading) {
+        return (<h1>Page loading....</h1>)
+    }
+     else {
 
+     
     return (
     <>
     <HeaderBox>
@@ -52,6 +63,6 @@ const Articles = () => {
 
     </>
     )
-}
+}}
 
 export default Articles;

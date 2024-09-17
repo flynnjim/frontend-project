@@ -26,7 +26,5 @@ export const getComments = (article_id) => {
       .then(({data}) => {
         return data
       })
-      .catch((err) => {
-        return err
-      })
+
 }
