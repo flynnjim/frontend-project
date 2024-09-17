@@ -9,11 +9,13 @@ function ArticleCard({
     comment_count,
     created_at,
     title,
-    topic
+    topic,
+    article_id,
+    body
 }) {
-    
       return (
-    <ArticleCardContainer   >
+
+    <ArticleCardContainer body={body}>
         <ArticleCardContent>
         <ArticleHeader gutterBottom variant="body2" component="div">
          Topic: {topic}
@@ -40,9 +42,23 @@ function ArticleCard({
         </Box>
       </ArticleCardContent>
 
-      <ArticleCardAction>
-        <Button sx={{backgroundColor: '#F5EEE6'}}>See more info</Button>
-      </ArticleCardAction>
+      {body === undefined ? (
+          <ArticleCardAction>
+            <Button sx={{backgroundColor: '#F5EEE6'}}>
+              <a href={`/articles/${article_id}`}>See more details
+              </a>
+            </Button>
+          </ArticleCardAction>
+          )
+          :
+          (
+            <ArticleCardContent>
+          <ArticleHeader gutterBottom variant="body2" component="div">
+            {body}
+          </ArticleHeader>
+            </ArticleCardContent>
+          )
+      }
     </ArticleCardContainer>
   );
 }

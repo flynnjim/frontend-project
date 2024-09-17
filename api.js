@@ -10,3 +10,12 @@ export const getAllArticles = () => {
             return data
         })
 }
+
+export const getCurrentArticle = (article_id) => {
+  return ncnewsApi
+      .get(`/articles/${article_id}`)
+      .then(({data}) => {
+        // console.log(data);
+        return data
+      })
+}

@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Nav from './components/Nav'
 import Homepage from "./components/Homepage";
 import Articles from "./components/Articles";
+import ArticleSingleCard from './components/ArticleSingleCard';
 
 import { Route, Routes } from "react-router-dom";
 
@@ -18,6 +19,10 @@ function App() {
       <Routes>
         <Route path='/homepage' element ={<Homepage/>}/>
         <Route path='/articles' element ={<Articles/>}/>
+        <Route
+          path='articles/:article_id'
+          element={<ArticleSingleCard/>}
+        />
       </Routes>
     </>
   )

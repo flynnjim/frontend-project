@@ -6,7 +6,15 @@ import HeaderBox from "../styles/headerStyles";
 
 
 const Articles = () => {
-    const [articlesData, setArticlesData] = useState([])
+    const [articlesData, setArticlesData] = useState([{
+        article_img_url: 'https://res.cloudinary.com/cloudinary-marketing/images/w_1540,h_1083/f_auto,q_auto/v1649725549/Web_Assets/blog/loading-645268_1280/loading-645268_1280-jpg?_i=AA',
+        author: '',
+        comment_count: 0,
+        created_at:'',
+        title: '',
+        topic:'',
+        article_id: ''
+          }])
 
     useEffect(() => {
         getAllArticles()
@@ -34,6 +42,7 @@ const Articles = () => {
                     created_at={article.created_at}
                     title={article.title}
                     topic={article.topic}
+                    article_id={article.article_id}
                     />
                 </li>
             )
