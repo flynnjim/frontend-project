@@ -1,24 +1,20 @@
 import { Typography } from "@mui/material"
-import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import { getAllArticles } from "../../api";
 import ArticleCard from "./ArticleCard";
+import HeaderBox from "../styles/headerStyles";
 
-const boxStyle = { 
-    flexGrow: 1,
-    width: '100%',
-    padding: 1,
-    backgroundColor: "#9CA986",
-    display: "flex",
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: {xs: 'auto', sm: 20, md: 40},
-    minWidth: {xs: 'auto', sm: 500, md: 1000},
-    padding: {xs: 1, sm: 2, md:3},
-}
 
 const Articles = () => {
-    const [articlesData, setArticlesData] = useState([])
+    const [articlesData, setArticlesData] = useState([{
+        article_img_url: 'https://res.cloudinary.com/cloudinary-marketing/images/w_1540,h_1083/f_auto,q_auto/v1649725549/Web_Assets/blog/loading-645268_1280/loading-645268_1280-jpg?_i=AA',
+        author: '',
+        comment_count: 0,
+        created_at:'',
+        title: '',
+        topic:'',
+        article_id: ''
+          }])
 
     useEffect(() => {
         getAllArticles()
@@ -29,9 +25,10 @@ const Articles = () => {
 
     return (
     <>
-    <Box sx={boxStyle}>
+    <HeaderBox>
         <Typography variant="h2">Articles</Typography>
-    </Box>
+    </HeaderBox>
+    
     
     <>
     <ul id="item-list" >
@@ -45,6 +42,7 @@ const Articles = () => {
                     created_at={article.created_at}
                     title={article.title}
                     topic={article.topic}
+                    article_id={article.article_id}
                     />
                 </li>
             )
