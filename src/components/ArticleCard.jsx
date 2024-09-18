@@ -43,6 +43,21 @@ const ArticleCard = ({
     const [usernameLabel, setUsernameLabel] = useState('')
     const [commentBodyLabel, setCommentBodyLabel] = useState('')
     const [successfulCommentPost, setSuccessfulCommentPost] = useState(false)
+    const [successfulDeletedComment, setSuccessfulDeletedComment] = useState(false)
+
+    const username = 'grumpy19'
+
+    const handleRemoveContentDisplay = (delete_comment_id) => {
+      setSuccessfulDeletedComment(true)
+      setArticleComments((currentArticleComments) => 
+          currentArticleComments.filter((comment) => {
+            return comment.comment_id !== delete_comment_id
+          })
+    )
+    setTimeout(() => {
+      setSuccessfulDeletedComment(false)
+    }, 3000)
+    }
 
 
     const submitComment = () => {
@@ -66,12 +81,18 @@ const ArticleCard = ({
           setSuccessfulCommentPost(true)
           setCommentBodyForm("")
           setUsernameForm("")
+
+          const newComment = response.data[0];
+          setArticleComments((comments) => [newComment, ...comments])
         })
         .catch((err) => {
           setErrorSubmitting(true)
         })
         .finally(() => {
           setSubmitButtonDisabled(false)
+          setTimeout(() => {
+            setSuccessfulCommentPost(false)
+          }, 5000)
         })
       }
     }
@@ -226,6 +247,7 @@ const ArticleCard = ({
                     Error submitting form, check username is correct and try again
                   </ArticleCardTypography>
                   ): null}
+
                   {successfulCommentPost? (
                     <ArticleCardTypography gutterBottom variant="body2" component="div" >
                     Your comment was successfully posted
@@ -255,6 +277,11 @@ const ArticleCard = ({
 
               {displayComments && commentsFound ? (
                 <>
+                {successfulDeletedComment? (
+                    <ArticleCardTypography gutterBottom variant="body2" component="div" >
+                    Comment was successfully deleted
+                  </ArticleCardTypography>
+                  ): null}
                 <ul id="item-list" >
         {articleComments.map((comment) => {
             return (
@@ -267,6 +294,8 @@ const ArticleCard = ({
                     comment_id={comment.comment_id}
                     created_at={comment.created_at}
                     votes={comment.votes}
+                    username={username}
+                    handleRemoveContentDisplay={handleRemoveContentDisplay}
                     />
                 </li>
             )

@@ -5,6 +5,10 @@ import NavButton from "../styles/NavButton";
 import {ArticleCardTypography, ArticleCardContent, ArticleCardAction, ArticleCardContainer, ArticleHeader} from "../styles/ArticleCardStyles";
 import { getComments } from "../../api";
 import { useState } from "react";
+import { deleteComment } from "../../api";
+import { FormHelperText } from "@mui/material";
+
+
 
 const CommentCard = ({
     article_id,
@@ -12,8 +16,28 @@ const CommentCard = ({
     body,
     comment_id,
     created_at,
-    votes
+    votes,
+    username,
+    handleRemoveContentDisplay
 }) => {
+
+    const [deleteLabel, setDeleteLabel] = useState('')
+
+    const deleteThisComment = () => {
+        if (username === author) {
+
+            deleteComment(comment_id)
+                .then(() => {
+                    handleRemoveContentDisplay(comment_id)
+                })
+                .catch((err) => {
+                       
+                })
+        } else {
+            setDeleteLabel('username does not match, you can only delete your own comments')
+        }
+
+    }
 
     const formatDate = new Date(created_at).toString().split(" ").slice(0, 5).join(" ")
 
@@ -42,12 +66,11 @@ const CommentCard = ({
                         votes: {votes}
                     </ArticleCardTypography>
                     
-                    <Button>
-                        Up vote
-                    </Button>
-                    <Button>
-                        Down vote
-                    </Button>
+                    <NavButton onClick={deleteThisComment}>
+                        Delete comment
+                    </NavButton>
+                    <FormHelperText sx={{ color: "red" }}>{deleteLabel}</FormHelperText>
+
 
                 </Box>
             </ArticleCardContent>

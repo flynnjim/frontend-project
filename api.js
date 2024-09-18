@@ -34,8 +34,7 @@ export const voteComment = (article_id) => {
   return ncnewsApi
     .patch(`/articles/${article_id}`, { inc_votes: 1 })
     .then((response) => {
-      console.log(response);
-      
+
     })
 }
 
@@ -47,8 +46,13 @@ export const addComment = (article_id, username, commentBody) => {
     .then((response) => {
       return response
     })
-    // .catch((err) => {
-    //   return err
-    // })
+}
 
+export const deleteComment = (comment_id) => {
+  
+  return ncnewsApi
+    .delete(`/comments/${comment_id}`,)
+    .then((response) => {
+      return response
+    })
 }
