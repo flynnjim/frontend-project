@@ -38,3 +38,17 @@ export const voteComment = (article_id) => {
       
     })
 }
+
+export const addComment = (article_id, username, commentBody) => {
+
+
+  return ncnewsApi
+    .post(`/articles/${article_id}/comments`, {author: username, body: commentBody})
+    .then((response) => {
+      return response
+    })
+    // .catch((err) => {
+    //   return err
+    // })
+
+}
