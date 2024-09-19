@@ -31,7 +31,7 @@ const ArticleCard = ({
   const [successfulDeletedComment, setSuccessfulDeletedComment] =
     useState(false);
   const [voteFailed, setVoteFailed] = useState(false);
-  const [voteFailMessage, setVoteFailedMessage] = useState("");
+  const [voteFailedMessage, setVoteFailedMessage] = useState("");
   const [commentsNotLoaded, setCommentsNotLoaded] = useState(true);
 
   const username = "grumpy19";
@@ -54,17 +54,20 @@ const ArticleCard = ({
   };
 
   const addVote = () => {
+
     setButtonVoteDisabled(true);
     const updatedVotes = currentVotes + 1;
     setCurrentVotes(updatedVotes);
 
     voteArticle(article_id)
       .then((response) => {
+        
         setVoteFailedMessage("");
         setVoteFailed(false);
       })
       .catch((err) => {
         setCurrentVotes(currentVotes);
+
         setVoteFailedMessage("failed to add vote");
         setVoteFailed(true);
       })
@@ -120,6 +123,7 @@ const ArticleCard = ({
         created_at={created_at}
         currentVotes={currentVotes}
         voteFailed={voteFailed}
+        voteFailedMessage={voteFailedMessage}
       />
 
       <ArticleCardActionComponent

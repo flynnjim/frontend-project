@@ -14,12 +14,14 @@ const ArticleContentComponent = ({
   created_at,
   currentVotes,
   voteFailed,
+  voteFailedMessage
 }) => {
   const formatDate = new Date(created_at)
     .toString()
     .split(" ")
     .slice(0, 5)
     .join(" ");
+
 
   return (
     <>
@@ -50,7 +52,7 @@ const ArticleContentComponent = ({
           </ArticleCardTypography>
           {voteFailed ? (
             <FormHelperText sx={{ color: "red" }}>
-              {voteFailMessage}
+              {voteFailedMessage}
             </FormHelperText>
           ) : null}
         </Box>
