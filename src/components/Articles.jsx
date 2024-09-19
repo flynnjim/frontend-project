@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getAllArticles } from "../../api";
 import ArticleCard from "./ArticleCard";
 import HeaderBox from "../styles/headerStyles";
+import { useParams } from "react-router-dom";
 
 
 const Articles = () => {
@@ -19,9 +20,14 @@ const Articles = () => {
 
         const [isPageLoading, setIsPageLoading] = useState(true)
 
+        const {category} = useParams()
+        console.log(category);
+        
+        
+
     useEffect(() => {
         setIsPageLoading(true)
-        getAllArticles()
+        getAllArticles(category)
         .then((articles) => {
             setArticlesData(articles)
         })
