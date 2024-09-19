@@ -22,16 +22,22 @@ const CommentCard = ({
 }) => {
 
     const [deleteLabel, setDeleteLabel] = useState('')
+    const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(false)
 
     const deleteThisComment = () => {
+        setDeleteLabel("deleting comment")
         if (username === author) {
+            setDeleteButtonDisabled(true)
 
             deleteComment(comment_id)
                 .then(() => {
                     handleRemoveContentDisplay(comment_id)
                 })
                 .catch((err) => {
-                       
+                    setDeleteLabel('failed to delete comment')
+                })
+                .finally(() => {
+                    setDeleteButtonDisabled(false)
                 })
         } else {
             setDeleteLabel('username does not match, you can only delete your own comments')
@@ -66,10 +72,11 @@ const CommentCard = ({
                         votes: {votes}
                     </ArticleCardTypography>
                     
-                    <NavButton onClick={deleteThisComment}>
+                    <NavButton onClick={deleteThisComment} disabled={deleteButtonDisabled}>
                         Delete comment
                     </NavButton>
                     <FormHelperText sx={{ color: "red" }}>{deleteLabel}</FormHelperText>
+                    
 
 
                 </Box>
