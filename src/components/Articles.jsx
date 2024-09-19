@@ -24,7 +24,6 @@ const Articles = () => {
         getAllArticles()
         .then((articles) => {
             setArticlesData(articles)
-            console.log(articles)
         })
         .finally(() => {
             setIsPageLoading(false)

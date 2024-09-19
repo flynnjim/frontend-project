@@ -1,18 +1,12 @@
-import Button from "@mui/material/Button";
-import NavButton from "../styles/NavButton";
-import {
-  ArticleCardContent,
-  ArticleCardAction,
-  ArticleCardContainer,
-  ArticleHeader,
-} from "../styles/ArticleCardStyles";
+import { ArticleCardContainer } from "../styles/ArticleCardStyles";
 import { getComments } from "../../api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { voteArticle } from "../../api";
 import { addComment } from "../../api";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import ArticleContentComponent from "./ArticleContentComponent";
+import ArticleCardActionComponent from "./ArticleCardActionComponent";
 
 const ArticleCard = ({
   article_img_url,
@@ -25,12 +19,6 @@ const ArticleCard = ({
   body,
   votes,
 }) => {
-  const formatDate = new Date(created_at)
-    .toString()
-    .split(" ")
-    .slice(0, 5)
-    .join(" ");
-
   const [articleComments, setArticleComments] = useState([]);
   const [displayComments, setDisplayComments] = useState(false);
   const [buttonDisplay, setButtonDisplay] = useState("Display Comments");
@@ -50,6 +38,7 @@ const ArticleCard = ({
     useState(false);
   const [voteFailed, setVoteFailed] = useState(false);
   const [voteFailMessage, setVoteFailedMessage] = useState("");
+  const [commentsNotLoaded, setCommentsNotLoaded] = useState(true);
 
   const username = "grumpy19";
 
@@ -138,17 +127,14 @@ const ArticleCard = ({
   };
 
   const getArticleComments = () => {
-    // console.log((articleComments));
-    // console.log((articleComments));
-    
-    if (articleComments.length===0) {
- 
+    if (commentsNotLoaded) {
       setIsLoadingComments(true);
-  
+
       getComments(article_id)
         .then((response) => {
           setCommentsFound(true);
           setArticleComments(response);
+          setCommentsNotLoaded(false);
           setDisplayComments(!displayComments);
           setButtonDisplay(
             buttonDisplay === "Hide comments"
@@ -162,88 +148,63 @@ const ArticleCard = ({
         .finally(() => {
           setIsLoadingComments(false);
         });
-
     } else {
       setCommentsFound(true);
-      setDisplayComments(!displayComments)
+      setDisplayComments(!displayComments);
       setButtonDisplay(
-        buttonDisplay === "Hide comments"
-          ? "Display Comments"
-          : "Hide comments"
+        buttonDisplay === "Hide comments" ? "Display Comments" : "Hide comments"
       );
     }
   };
 
   return (
     <ArticleCardContainer body={body}>
-
-      <ArticleContentComponent
-      topic={topic}
-      title={title}
-      article_img_url={article_img_url}
-      author={author}
-      comment_count={comment_count}
-      created_at={created_at}
-      currentVotes={currentVotes}
-      voteFailed={voteFailed}
       
+      <ArticleContentComponent
+        topic={topic}
+        title={title}
+        article_img_url={article_img_url}
+        author={author}
+        comment_count={comment_count}
+        created_at={created_at}
+        currentVotes={currentVotes}
+        voteFailed={voteFailed}
       />
 
-      {body === undefined ? (
-        <ArticleCardAction>
-          <Button sx={{ backgroundColor: "#F5EEE6" }}>
-            <a href={`/articles/${article_id}`}>See more details</a>
-          </Button>
-        </ArticleCardAction>
-      ) : (
-        <>
-          <ArticleCardContent>
-            <ArticleHeader gutterBottom variant="body2" component="div">
-              {body}
-            </ArticleHeader>
-          </ArticleCardContent>
+      <ArticleCardActionComponent
+        body={body}
+        article_id={article_id}
+        getArticleComments={getArticleComments}
+        isLoadingComments={isLoadingComments}
+        buttonDisplay={buttonDisplay}
+        addVote={addVote}
+        buttonVoteDisabled={buttonVoteDisabled}
+        openCommentForm={openCommentForm}
+      />
 
-          <ArticleCardAction>
-            <NavButton
-              onClick={getArticleComments}
-              disabled={isLoadingComments}
-            >
-              {buttonDisplay}
-            </NavButton>
-            <NavButton onClick={addVote} disabled={buttonVoteDisabled}>
-              Vote article
-            </NavButton>
-            <NavButton onClick={openCommentForm} disabled={false}>
-              Write Comment
-            </NavButton>
-          </ArticleCardAction>
+      <CommentForm
+        commentFormOpen={commentFormOpen}
+        usernameForm={usernameForm}
+        commentBodyForm={commentBodyForm}
+        handleUserNamechange={handleUserNamechange}
+        handleCommentBodyChange={handleCommentBodyChange}
+        submitComment={submitComment}
+        submitButtonDisabled={submitButtonDisabled}
+        errorSubmitting={errorSubmitting}
+        successfulCommentPost={successfulCommentPost}
+        usernameLabel={usernameLabel}
+        commentBodyLabel={commentBodyLabel}
+      />
 
-          <CommentForm
-            commentFormOpen={commentFormOpen}
-            usernameForm={usernameForm}
-            commentBodyForm={commentBodyForm}
-            handleUserNamechange={handleUserNamechange}
-            handleCommentBodyChange={handleCommentBodyChange}
-            submitComment={submitComment}
-            submitButtonDisabled={submitButtonDisabled}
-            errorSubmitting={errorSubmitting}
-            successfulCommentPost={successfulCommentPost}
-            usernameLabel={usernameLabel}
-            commentBodyLabel={commentBodyLabel}
-          />    
-
-          <CommentList
-            articleComments={articleComments}
-            successfulDeletedComment={successfulDeletedComment}
-            isLoadingComments={isLoadingComments}
-            displayComments={displayComments}
-            commentsFound={commentsFound}
-            username={username}
-            handleRemoveContentDisplay={handleRemoveContentDisplay}
-          />
-
-        </>
-      )}
+      <CommentList
+        articleComments={articleComments}
+        successfulDeletedComment={successfulDeletedComment}
+        isLoadingComments={isLoadingComments}
+        displayComments={displayComments}
+        commentsFound={commentsFound}
+        username={username}
+        handleRemoveContentDisplay={handleRemoveContentDisplay}
+      />
     </ArticleCardContainer>
   );
 };
