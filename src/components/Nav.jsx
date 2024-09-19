@@ -12,7 +12,7 @@ const Nav = () => {
         sx={{ width: 'auto', maxWidth: 1000}}
         >
             <NavButton variant="contained">
-              <a href="/homepage">Home</a>
+              <a href="/">Home</a>
             </NavButton>
 
             <NavButton variant="contained">

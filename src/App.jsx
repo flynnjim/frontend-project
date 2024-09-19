@@ -1,11 +1,12 @@
 import './App.css'
 import Header from './components/Header'
 import Nav from './components/Nav'
-import Homepage from "./components/Homepage";
+
 import Articles from "./components/Articles";
 import ArticleSingleCard from './components/ArticleSingleCard';
+import Categories from './components/Categories'
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 // const colorPalette = ['#C9DABF', '#9CA986', '#808D7C', '#5F6F65']
 // const colorPalette2 = ['#F5EEE6', '#FFF8E3', '#F3D7CA', '#E6A4B4']
@@ -16,12 +17,18 @@ function App() {
     <>
       <Header/>
       <Nav/>
+      <Categories/>
       <Routes>
-        <Route path='/homepage' element ={<Homepage/>}/>
         <Route path='/articles' element ={<Articles/>}/>
         <Route
           path='articles/:article_id'
           element={<ArticleSingleCard/>}
+        />
+        <Route
+          path="/categories/:category"
+          element={
+            <Articles/>
+          }
         />
       </Routes>
     </>

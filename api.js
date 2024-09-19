@@ -3,9 +3,13 @@ const ncnewsApi = axios.create({
   baseURL: "https://backend-project-fmoa.onrender.com/api",
 });
 
-export const getAllArticles = () => {
+export const getAllArticles = (category) => {
     return ncnewsApi
-        .get("/articles")
+        .get("/articles", {
+          params: {
+            topic_query: category
+          }
+        } )
         .then(({data}) => {
             return data
         })
@@ -55,4 +59,12 @@ export const deleteComment = (comment_id) => {
     .then((response) => {
       return response
     })
+}
+
+export const getTopics = () => {
+  return ncnewsApi
+        .get("/topics")
+        .then(({data}) => {
+            return data
+        })
 }
