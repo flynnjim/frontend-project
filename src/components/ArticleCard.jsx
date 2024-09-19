@@ -144,25 +144,40 @@ const ArticleCard = ({
   };
 
   const getArticleComments = () => {
-    setIsLoadingComments(true);
+    // console.log((articleComments));
+    // console.log((articleComments));
+    
+    if (articleComments.length===0) {
+ 
+      setIsLoadingComments(true);
+  
+      getComments(article_id)
+        .then((response) => {
+          setCommentsFound(true);
+          setArticleComments(response);
+          setDisplayComments(!displayComments);
+          setButtonDisplay(
+            buttonDisplay === "Hide comments"
+              ? "Display Comments"
+              : "Hide comments"
+          );
+        })
+        .catch((err) => {
+          setCommentsFound(false);
+        })
+        .finally(() => {
+          setIsLoadingComments(false);
+        });
 
-    getComments(article_id)
-      .then((response) => {
-        setCommentsFound(true);
-        setArticleComments(response);
-        setDisplayComments(!displayComments);
-        setButtonDisplay(
-          buttonDisplay === "Hide comments"
-            ? "Display Comments"
-            : "Hide comments"
-        );
-      })
-      .catch((err) => {
-        setCommentsFound(false);
-      })
-      .finally(() => {
-        setIsLoadingComments(false);
-      });
+    } else {
+      setCommentsFound(true);
+      setDisplayComments(!displayComments)
+      setButtonDisplay(
+        buttonDisplay === "Hide comments"
+          ? "Display Comments"
+          : "Hide comments"
+      );
+    }
   };
 
   return (
