@@ -19,6 +19,7 @@ const ArticleCard = ({
   body,
   votes,
 }) => {
+
   const [articleComments, setArticleComments] = useState([]);
   const [displayComments, setDisplayComments] = useState(false);
   const [buttonDisplay, setButtonDisplay] = useState("Display Comments");
@@ -27,13 +28,6 @@ const ArticleCard = ({
   const [currentVotes, setCurrentVotes] = useState(votes);
   const [buttonVoteDisabled, setButtonVoteDisabled] = useState(false);
   const [commentFormOpen, setCommentFormOpen] = useState(false);
-  const [usernameForm, setUsernameForm] = useState("");
-  const [commentBodyForm, setCommentBodyForm] = useState("");
-  const [errorSubmitting, setErrorSubmitting] = useState(false);
-  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
-  const [usernameLabel, setUsernameLabel] = useState("");
-  const [commentBodyLabel, setCommentBodyLabel] = useState("");
-  const [successfulCommentPost, setSuccessfulCommentPost] = useState(false);
   const [successfulDeletedComment, setSuccessfulDeletedComment] =
     useState(false);
   const [voteFailed, setVoteFailed] = useState(false);
@@ -54,54 +48,7 @@ const ArticleCard = ({
     }, 3000);
   };
 
-  const submitComment = () => {
-    setSuccessfulCommentPost(false);
-    setErrorSubmitting(false);
-
-    if (!usernameForm && !commentBodyForm) {
-      setUsernameLabel("fill in username");
-      setCommentBodyLabel("fill in comment text");
-    } else if (!usernameForm) {
-      setUsernameLabel("fill in username");
-    } else if (!commentBodyForm) {
-      setCommentBodyLabel("fill in comment text");
-    } else {
-      setSubmitButtonDisabled(true);
-
-      addComment(article_id, usernameForm, commentBodyForm)
-        .then((response) => {
-          setErrorSubmitting(false);
-          setSuccessfulCommentPost(true);
-          setCommentBodyForm("");
-          setUsernameForm("");
-
-          const newComment = response.data[0];
-          setArticleComments((comments) => [newComment, ...comments]);
-        })
-        .catch((err) => {
-          setErrorSubmitting(true);
-        })
-        .finally(() => {
-          setSubmitButtonDisabled(false);
-          setTimeout(() => {
-            setSuccessfulCommentPost(false);
-          }, 5000);
-        });
-    }
-  };
-
-  const handleCommentBodyChange = (event) => {
-    setCommentBodyLabel("");
-    setSuccessfulCommentPost(false);
-    setCommentBodyForm(event.target.value);
-  };
-
-  const handleUserNamechange = (event) => {
-    setUsernameLabel("");
-    setSuccessfulCommentPost(false);
-    setUsernameForm(event.target.value);
-  };
-
+  
   const openCommentForm = () => {
     setCommentFormOpen(!commentFormOpen);
   };
@@ -157,9 +104,13 @@ const ArticleCard = ({
     }
   };
 
+  const handleNewComment = (newComment) => {
+    setArticleComments((comments) => [newComment, ...comments])
+  }
+
   return (
     <ArticleCardContainer body={body}>
-      
+
       <ArticleContentComponent
         topic={topic}
         title={title}
@@ -184,16 +135,8 @@ const ArticleCard = ({
 
       <CommentForm
         commentFormOpen={commentFormOpen}
-        usernameForm={usernameForm}
-        commentBodyForm={commentBodyForm}
-        handleUserNamechange={handleUserNamechange}
-        handleCommentBodyChange={handleCommentBodyChange}
-        submitComment={submitComment}
-        submitButtonDisabled={submitButtonDisabled}
-        errorSubmitting={errorSubmitting}
-        successfulCommentPost={successfulCommentPost}
-        usernameLabel={usernameLabel}
-        commentBodyLabel={commentBodyLabel}
+        article_id={article_id}
+        handleNewComment={handleNewComment}
       />
 
       <CommentList
