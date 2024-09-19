@@ -1,9 +1,6 @@
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import NavButton from "../styles/NavButton";
 import {
-  ArticleCardTypography,
   ArticleCardContent,
   ArticleCardAction,
   ArticleCardContainer,
@@ -11,14 +8,11 @@ import {
 } from "../styles/ArticleCardStyles";
 import { getComments } from "../../api";
 import { useEffect, useState } from "react";
-import CommentCard from "./CommentCard";
 import { voteArticle } from "../../api";
-import HeaderBox from "../styles/headerStyles";
-import TextField from "@mui/material/TextField";
 import { addComment } from "../../api";
-import { FormHelperText } from "@mui/material";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
+import ArticleContentComponent from "./ArticleContentComponent";
 
 const ArticleCard = ({
   article_img_url,
@@ -182,38 +176,18 @@ const ArticleCard = ({
 
   return (
     <ArticleCardContainer body={body}>
-      <ArticleCardContent>
-        <ArticleHeader gutterBottom variant="body2" component="div">
-          Topic: {topic}
-        </ArticleHeader>
-        <ArticleHeader gutterBottom variant="h5" component="div">
-          {title}
-        </ArticleHeader>
-      </ArticleCardContent>
 
-      <CardMedia sx={{ aspectRatio: 1 / 1 }} image={article_img_url} />
-
-      <ArticleCardContent>
-        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-          <ArticleCardTypography gutterBottom variant="body2" component="div">
-            written by {author}
-          </ArticleCardTypography>
-          <ArticleCardTypography gutterBottom variant="body2" component="div">
-            Comments: {comment_count}
-          </ArticleCardTypography>
-          <ArticleCardTypography gutterBottom variant="body2" component="div">
-            Time created: {formatDate}
-          </ArticleCardTypography>
-          <ArticleCardTypography gutterBottom variant="body2" component="div">
-            Votes: {currentVotes}
-          </ArticleCardTypography>
-          {voteFailed ? (
-            <FormHelperText sx={{ color: "red" }}>
-              {voteFailMessage}
-            </FormHelperText>
-          ) : null}
-        </Box>
-      </ArticleCardContent>
+      <ArticleContentComponent
+      topic={topic}
+      title={title}
+      article_img_url={article_img_url}
+      author={author}
+      comment_count={comment_count}
+      created_at={created_at}
+      currentVotes={currentVotes}
+      voteFailed={voteFailed}
+      
+      />
 
       {body === undefined ? (
         <ArticleCardAction>
