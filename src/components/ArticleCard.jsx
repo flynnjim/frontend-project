@@ -6,7 +6,7 @@ import {ArticleCardTypography, ArticleCardContent, ArticleCardAction, ArticleCar
 import { getComments } from "../../api";
 import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
-import { voteComment } from "../../api";
+import { voteArticle } from "../../api";
 import HeaderBox from "../styles/headerStyles";
 import TextField from "@mui/material/TextField";
 import { addComment } from "../../api";
@@ -44,6 +44,8 @@ const ArticleCard = ({
     const [commentBodyLabel, setCommentBodyLabel] = useState('')
     const [successfulCommentPost, setSuccessfulCommentPost] = useState(false)
     const [successfulDeletedComment, setSuccessfulDeletedComment] = useState(false)
+    const [voteFailed, setVoteFailed] = useState(false)
+    const [voteFailMessage, setVoteFailedMessage] = useState('')
 
     const username = 'grumpy19'
 
@@ -121,11 +123,15 @@ const ArticleCard = ({
     const updatedVotes = currentVotes + 1
     setCurrentVotes(updatedVotes)
 
-      voteComment(article_id)
+      voteArticle(article_id)
         .then((response) => {
+          setVoteFailedMessage('')
+          setVoteFailed(false)
         })
         .catch((err) => {
           setCurrentVotes(currentVotes)
+          setVoteFailedMessage('failed to add vote')
+          setVoteFailed(true)
         })
         .finally(() => {
           setButtonVoteDisabled(false)
@@ -185,6 +191,9 @@ const ArticleCard = ({
         <ArticleCardTypography gutterBottom variant="body2" component="div" >
           Votes: {currentVotes}
         </ArticleCardTypography>
+      {voteFailed? (
+          <FormHelperText sx={{ color: "red" }}>{voteFailMessage}</FormHelperText>
+          ): null}
         </Box>
       </ArticleCardContent>
 
@@ -217,6 +226,8 @@ const ArticleCard = ({
                 </NavButton>
                
               </ArticleCardAction>
+
+
 
               {commentFormOpen? (
                 <>
