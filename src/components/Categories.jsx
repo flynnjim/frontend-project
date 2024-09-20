@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 const Categories = () => {
   const [topics, setTopics] = useState([]);
   const [activeButton, setActiveButton] = useState(null)
+
  
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName)
