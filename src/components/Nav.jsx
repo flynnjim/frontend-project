@@ -14,7 +14,7 @@ const Nav = () => {
   }
 
   const getButtonStyle = (buttonName) => {
-    return activeButton === buttonName ? {backgroundColor: 'yellow', borderRadius: 5} : {}
+    return activeButton === buttonName ? {backgroundColor: 'yellow', borderRadius: '15px'} : {}
   }
 
   return (
