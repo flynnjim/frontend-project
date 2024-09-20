@@ -5,6 +5,7 @@ import Nav from './components/Nav'
 import Articles from "./components/Articles";
 import ArticleSingleCard from './components/ArticleSingleCard';
 import Categories from './components/Categories'
+import NotFoundPage from './components/NotFoundPage';
 
 import { Route, Routes, Navigate } from "react-router-dom";
 
@@ -17,17 +18,17 @@ function App() {
     <>
       <Header/>
       <Nav/>
-      <Categories/>
       <Routes>
-        <Route path='/articles' element ={<Articles/>}/>
+      <Route path="*" element={<NotFoundPage/>} />
+        <Route path='/articles' element ={<><Categories/><Articles/></>}/>
         <Route
           path='articles/:article_id'
-          element={<ArticleSingleCard/>}
+          element={<><Categories/><ArticleSingleCard/></>}
         />
         <Route
           path="/categories/:category"
           element={
-            <Articles/>
+            <><Categories/><Articles/></>
           }
         />
       </Routes>
