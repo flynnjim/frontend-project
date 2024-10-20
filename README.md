@@ -125,11 +125,13 @@ netlify deploy --prod
 ```bash
 npm run build
 ```
-2. Deploy to a draft URL:
+2. Deploy to a draft URL:  
+select dist for publish directory
 ```bash
 netlify deploy
 ```
-3. Deploy to the production URL:
+3. Deploy to the production URL:  
+select dist for publish directory
 ```bash
 netlify deploy --prod
 ```
