@@ -1,6 +1,8 @@
 import axios from "axios";
+const BACKEND_API = import.meta.env.VITE_BACKEND_API_URL;
+
 const ncnewsApi = axios.create({
-  baseURL: "https://backend-project-fmoa.onrender.com/api",
+  baseURL: BACKEND_API,
 });
 
 export const getAllArticles = (category, sort, order_chosen) => {
