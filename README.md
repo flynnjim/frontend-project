@@ -3,6 +3,21 @@
 ## Hosted on Netlify
 ### [**Live App**](https://newsattack.netlify.app/articles)
 
+## Table of Contents
+   * [**Introduction**](#introduction)
+   * [**Project Overview**](#project-overview)
+   * [**Key features**](#key-features)
+   * [**Technologies Used**](#technologies-used)
+   * [**Installation and Setup**](#installation-and-setup)
+      + [Requirements](#requirements)
+      + [Steps to Install Locally](#steps-to-install-locally)
+   * [Build for Production  ](#build-for-production)
+   * [**Environment Variables**  ](#environment-variables)
+   * [**API Integration**](#api-integration)
+   * [Deployment](#deployment)
+   * [Redeployment](#redeployment)
+   * [Setting Up Environment Variables in Netlify](#setting-up-environment-variables-in-netlify)
+
 ## **Introduction**
 News Attack is a social news, rating, and discussion app. Users can read articles, upvote articles, and add comments. This frontend application interacts with my NC News API to display and manipulate article and comment data.
 
