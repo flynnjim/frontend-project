@@ -19,7 +19,8 @@ function App() {
       <Header/>
       <Nav/>
       <Routes>
-      <Route path="*" element={<NotFoundPage/>} />
+        <Route path="/" element={<h1>Welcome to the Homepage</h1>} />
+        <Route path="*" element={<NotFoundPage/>} />
         <Route path='/articles' element ={<><Categories/><Articles/></>}/>
         <Route
           path='articles/:article_id'
