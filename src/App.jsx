@@ -18,18 +18,19 @@ function App() {
     <>
       <Header/>
       <Nav/>
+      <Categories />
       <Routes>
         <Route path="/" element={<h1>Welcome to the Homepage</h1>} />
         <Route path="*" element={<NotFoundPage/>} />
-        <Route path='/articles' element ={<><Categories/><Articles/></>}/>
+        <Route path='/articles' element ={<><Articles/></>}/>
         <Route
           path='articles/:article_id'
-          element={<><Categories/><ArticleSingleCard/></>}
+          element={<><ArticleSingleCard/></>}
         />
         <Route
           path="/categories/:category"
           element={
-            <><Categories/><Articles/></>
+            <><Articles/></>
           }
         />
       </Routes>

@@ -5,6 +5,7 @@ import ArticleCard from "./ArticleCard";
 import HeaderBox from "../styles/headerStyles";
 import { useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
+import DropDown from "./DropDown";
 
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -36,37 +37,6 @@ const Articles = () => {
   
     const { category } = useParams();
   
-    const handleOrderChange = (event) => {
-      const value = event.target.value;
-      if (commentCountSelected) {
-        if (value === "ASC") {
-          const sortedArticles = [...articlesData].sort(
-            (a, b) => b.comment_count - a.comment_count
-          );
-          setArticlesData(sortedArticles);
-        } else {
-          const sortedArticles = [...articlesData].sort(
-            (a, b) => a.comment_count - b.comment_count
-          );
-          setArticlesData(sortedArticles);
-        }
-      } else {
-        setOrder(value);
-      }
-    };
-  
-    const handleSortChange = (event) => {
-      if (event.target.value === "comment_count") {
-        setCommentCountSelected(true);
-        const sortedArticles = [...articlesData].sort(
-          (a, b) => b.comment_count - a.comment_count
-        );
-        setArticlesData(sortedArticles);
-      } else {
-        setCommentCountSelected(false);
-        setSortByChosen(event.target.value);
-      }
-    };
   
     useEffect(() => {
       setIsPageLoading(true);
@@ -99,65 +69,7 @@ const Articles = () => {
             <NotFoundPage />
           ) : (
             <>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  background: "green",
-                  padding: 2,
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormHelperText sx={{ color: "black", textAlign: "center" }}>
-                    Sort by
-                  </FormHelperText>
-                  <Select
-                    defaultValue=""
-                    label="Sort By"
-                    onChange={handleSortChange}
-                    sx={{
-                      width: "200px",
-                      marginLeft: "0",
-                    }}
-                  >
-                    <MenuItem value={""}>None</MenuItem>
-                    <MenuItem value={"created_at"}>Date</MenuItem>
-                    <MenuItem value={"comment_count"}>Comments</MenuItem>
-                    <MenuItem value={"votes"}>Votes</MenuItem>
-                  </Select>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormHelperText sx={{ color: "black", textAlign: "center" }}>
-                    Order
-                  </FormHelperText>
-                  <Select
-                    defaultValue=""
-                    label="ascending or descending"
-                    onChange={handleOrderChange}
-                    sx={{
-                      width: "200px",
-                      marginLeft: "0",
-                    }}
-                  >
-                    <MenuItem value={""}>None</MenuItem>
-                    <MenuItem value={"ASC"}>Ascending</MenuItem>
-                    <MenuItem value={"DESC"}>Descending</MenuItem>
-                  </Select>
-                </Box>
-              </Box>
+              <DropDown setArticlesData={setArticlesData} setOrder={setOrder} setCommentCountSelected={setCommentCountSelected} commentCountSelected={commentCountSelected} articlesData={articlesData} setSortByChosen={setSortByChosen}/>
   
               <ul id="item-list">
                 {articlesData.map((article) => (
