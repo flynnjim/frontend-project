@@ -99,9 +99,6 @@ const Articles = () => {
             <NotFoundPage />
           ) : (
             <>
-              <HeaderBox>
-                <Typography variant="h2">Articles</Typography>
-              </HeaderBox>
               <Box
                 sx={{
                   display: "flex",
