@@ -2,17 +2,23 @@ import Stack from "@mui/material/Stack";
 import HeaderBox from "../styles/headerStyles";
 import NavButton from "../styles/NavButton";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
-  const [activeButton, setActiveButton] = useState(null);
+  // const [activeButton, setActiveButton] = useState(null);
+  const location = useLocation();
 
-  const handleButtonClick = (buttonName) => {
-    setActiveButton(buttonName);
-  };
+
+  // const handleButtonClick = (buttonName) => {
+  //   setActiveButton(buttonName);
+  // };
+
+  const currentCategory = location.pathname.split("/").pop(); 
+  console.log(currentCategory);
+  
 
   const getButtonStyle = (buttonName) => {
-    return activeButton === buttonName
+    return currentCategory === buttonName
       ? { backgroundColor: "yellow", borderRadius: "15px" }
       : {};
   };
@@ -27,15 +33,13 @@ const Nav = () => {
         >
           <NavButton
             variant="contained"
-            onClick={() => handleButtonClick("home")}
-            sx={getButtonStyle("home")}
+            sx={getButtonStyle("")}
           >
             <Link to="/">Home</Link>
           </NavButton>
 
           <NavButton
             variant="contained"
-            onClick={() => handleButtonClick("articles")}
             sx={getButtonStyle("articles")}
           >
             <Link to="/articles">Articles</Link>
@@ -43,7 +47,6 @@ const Nav = () => {
 
           <NavButton
             variant="contained"
-            onClick={() => handleButtonClick("users")}
             sx={getButtonStyle("users")}
           >
             <Link to="/users">Users</Link>

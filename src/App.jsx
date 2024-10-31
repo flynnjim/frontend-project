@@ -6,6 +6,8 @@ import Articles from "./components/Articles";
 import ArticleSingleCard from './components/ArticleSingleCard';
 import Categories from './components/Categories'
 import NotFoundPage from './components/NotFoundPage';
+import Trending from './components/Trending';
+import InterestedFootball from './components/InterestedFootball';
 
 import { Route, Routes, Navigate } from "react-router-dom";
 
@@ -20,7 +22,7 @@ function App() {
       <Nav/>
       <Categories />
       <Routes>
-        <Route path="/" element={<h1>Welcome to the Homepage</h1>} />
+        <Route path="/" element={<><Trending /><InterestedFootball /></>} />
         <Route path="*" element={<NotFoundPage/>} />
         <Route path='/articles' element ={<><Articles/></>}/>
         <Route
