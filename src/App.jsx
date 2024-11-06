@@ -8,6 +8,7 @@ import Categories from './components/Categories'
 import NotFoundPage from './components/NotFoundPage';
 import Trending from './components/Trending';
 import InterestedFootball from './components/InterestedFootball';
+import HighestRated from './components/HighestRated';
 
 import { Route, Routes, Navigate } from "react-router-dom";
 
@@ -22,7 +23,7 @@ function App() {
       <Nav/>
       <Categories />
       <Routes>
-        <Route path="/" element={<><Trending /><InterestedFootball /></>} />
+        <Route path="/" element={<Trending />} />
         <Route path="*" element={<NotFoundPage/>} />
         <Route path='/articles' element ={<><Articles/></>}/>
         <Route

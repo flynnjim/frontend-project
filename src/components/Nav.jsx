@@ -5,16 +5,11 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
-  // const [activeButton, setActiveButton] = useState(null);
+
   const location = useLocation();
 
 
-  // const handleButtonClick = (buttonName) => {
-  //   setActiveButton(buttonName);
-  // };
-
   const currentCategory = location.pathname.split("/").pop(); 
-  console.log(currentCategory);
   
 
   const getButtonStyle = (buttonName) => {
