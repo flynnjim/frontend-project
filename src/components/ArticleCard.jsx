@@ -112,8 +112,7 @@ const ArticleCard = ({
   }
 
   return (
-    <ArticleCardContainer body={body}>
-
+    <section className="w-[350px] h-[700px] rounded-lg overflow-hidden bg-bgcolor p-4">
       <ArticleContentComponent
         topic={topic}
         title={title}
@@ -124,7 +123,8 @@ const ArticleCard = ({
         currentVotes={currentVotes}
         voteFailed={voteFailed}
         voteFailedMessage={voteFailedMessage}
-      />
+        />
+
 
       <ArticleCardActionComponent
         body={body}
@@ -152,7 +152,7 @@ const ArticleCard = ({
         username={username}
         handleRemoveContentDisplay={handleRemoveContentDisplay}
       />
-    </ArticleCardContainer>
+    </section>
   );
 };
 

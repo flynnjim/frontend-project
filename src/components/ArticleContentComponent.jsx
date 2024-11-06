@@ -1,6 +1,4 @@
 import { ArticleCardContent } from "../styles/ArticleCardStyles";
-import { ArticleHeader } from "../styles/ArticleCardStyles";
-import { CardMedia } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ArticleCardTypography } from "../styles/ArticleCardStyles";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -14,7 +12,7 @@ const ArticleContentComponent = ({
   created_at,
   currentVotes,
   voteFailed,
-  voteFailedMessage
+  voteFailedMessage,
 }) => {
   const formatDate = new Date(created_at)
     .toString()
@@ -22,19 +20,21 @@ const ArticleContentComponent = ({
     .slice(0, 5)
     .join(" ");
 
-
   return (
     <>
-      <ArticleCardContent>
-        <ArticleHeader gutterBottom variant="body2" component="div">
-          Topic: {topic}
-        </ArticleHeader>
-        <ArticleHeader gutterBottom variant="h5" component="div">
-          {title}
-        </ArticleHeader>
-      </ArticleCardContent>
-
-      <CardMedia sx={{ aspectRatio: 1 / 1 }} image={article_img_url} />
+      <div className="relative w-full aspect-square">
+        <img
+          src={article_img_url}
+          alt="Article"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <section>
+        <header className="h-[30px] bg-bgcolor font-bold 3text-2xl text-left">
+          {topic}
+        </header>
+        <header className="h-[50px] bg-bgcolor text-left">{title}</header>
+      </section>
 
       <ArticleCardContent>
         <Box sx={{ display: "flex", flexWrap: "wrap" }}>
