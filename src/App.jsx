@@ -7,8 +7,6 @@ import ArticleSingleCard from './components/ArticleSingleCard';
 import Categories from './components/Categories'
 import NotFoundPage from './components/NotFoundPage';
 import Trending from './components/Trending';
-import InterestedFootball from './components/InterestedFootball';
-import HighestRated from './components/HighestRated';
 
 import { Route, Routes, Navigate } from "react-router-dom";
 
