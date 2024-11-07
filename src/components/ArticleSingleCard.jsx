@@ -5,6 +5,7 @@ import { getCurrentArticle } from "../../api";
 import NotFoundPage from "./NotFoundPage";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Typography, Box } from "@mui/material";
+import WholeArticlePage from "./WholeArticlePage";
 
 const ArticleSingleCard = () => {
   const [currentArticle, setCurrentArticle] = useState({
@@ -78,7 +79,7 @@ const ArticleSingleCard = () => {
         {noArticlesFound ? (
           <NotFoundPage />
         ) : (
-          <ArticleCard
+          <WholeArticlePage
             article_img_url={currentArticle.article_img_url}
             author={currentArticle.author}
             comment_count={currentArticle.comment_count}

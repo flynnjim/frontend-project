@@ -26,11 +26,6 @@ return(
         </ArticleCardAction>
       ) : (
         <>
-          <ArticleCardContent>
-            <ArticleHeader gutterBottom variant="body2" component="div">
-              {body}
-            </ArticleHeader>
-          </ArticleCardContent>
 
           <ArticleCardAction>
             <NavButton
