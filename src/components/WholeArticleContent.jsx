@@ -19,37 +19,42 @@ const WholeArticleContent = ({
     .toString()
     .split(" ")
     .slice(0, 5)
-    .join(" ");
+    .join(" ")
+    .slice(0, -3)
+    + " GMT";
 
   return (
     <>
       <section>
-        <header className="h-[60px] bg-bgcolor text-center text-4xl sm:text-2xl md:text-3xl lg:text-4xl overflow-hidden text-ellipsis">
+        <header className="h-[60px] bg-bgcolor text-center text-4xl sm:text-2xl md:text-3xl lg:text-4xl overflow-hidden text-ellipsis pb-10 underline text-gray-600">
           {title}
         </header>
       </section>
-      <div className="flex flex-col lg:flex-row items-start gap-4 border-2 border-green-500" >
-        <section className="relative lg:w-2/5">
+      <div className="flex flex-col custom:flex-row items-start gap-4">
+        <section className="relative custom:w-2/5">
           <img
             src={article_img_url}
             alt="Article"
             className="w-full h-full object-cover"
           />
         </section>
-        <section>
-          <p className="flex-1 border-2 border-green-500">{body}</p>
+        <section className="flex-1 flex flex-col items-center justify-center">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+            {body}
+          </p>
+          <p className="sm:text-lg md:text-xl lg:text-2xl xl:text-3xl pt-6 text-red-500 font-bold italic">{author}</p>
         </section>
       </div>
+      <section className="flex flex-col text-left pt-5">
+        <p>
+            {formatDate}
+        </p>
+        
+      </section>
       <ArticleCardContent>
         <Box sx={{ display: "flex", flexWrap: "wrap" }}>
           <ArticleCardTypography gutterBottom variant="body2" component="div">
-            written by {author}
-          </ArticleCardTypography>
-          <ArticleCardTypography gutterBottom variant="body2" component="div">
             Comments: {comment_count}
-          </ArticleCardTypography>
-          <ArticleCardTypography gutterBottom variant="body2" component="div">
-            Time created: {formatDate}
           </ArticleCardTypography>
           <ArticleCardTypography gutterBottom variant="body2" component="div">
             Votes: {currentVotes}
