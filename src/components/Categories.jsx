@@ -1,42 +1,46 @@
-import HeaderBox from "../styles/headerStyles";
-import Stack from "@mui/material/Stack";
-import NavButton from "../styles/NavButton";
 import { Link, useLocation } from "react-router-dom";
 
-const Categories = ({topics}) => {
+const Categories = ({ topics }) => {
+
+  const linkText =
+    "px-4 py-2 text-lg font-semibold block min-h-auto min-w-auto text-sm sm:text-base md:text-2xl lg:text-3xl";
+
 
   const location = useLocation();
 
-  const currentCategory = location.pathname.split("/").pop(); 
-  
+  const currentCategory = location.pathname.split("/").pop();
 
   const getButtonStyle = (buttonName) => {
-    return currentCategory === buttonName ? { backgroundColor: 'yellow', borderRadius: '15px', color: 'black' } : { color: 'black' };
+    return currentCategory === buttonName
+      ? "bg-fluorescent-yellow rounded-lg"
+      : "bg-buttonpink rounded-lg";
   };
 
   return (
-    <HeaderBox>
-      <h2>Categories</h2>
-      <Stack direction="row" spacing={2} sx={{ width: "auto", maxWidth: 1000 }}>
-        {topics.map((topic) => {
-          const topicName = topic.slug;
-          return (
-            <NavButton
-              variant="contained"
-              key={topicName}
-              sx={getButtonStyle(topicName)}
+    <header className="bg-cardcolor rounded-lg p-4 w-full">
+      <nav aria-label="Category Navigation">
+        <ul className="flex space-x-10 mx-auto justify-center w-full">
+        <li className="mb-4 md:mb-0">
+            <h2 className="text-center text-xl md:text-2xl font-bold pt-2">Categories</h2>
+          </li>
+
+          {topics.map((topic) => {
+            const topicName = topic.slug;
+            return (
+              <li className="transform hover:scale-105 transition-all">
+                <Link
+              to={`/categories/${topicName}`}
+              className={`${linkText}
+                 ${getButtonStyle(topicName)}`}
             >
-              <Link 
-                to={`/categories/${topicName}`} 
-                style={{ color: 'inherit', textDecoration: 'none' }}
-              >
-                {topicName}
-              </Link>
-            </NavButton>
-          );
-        })}
-      </Stack>
-    </HeaderBox>
+              {topicName}
+            </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </header>
   );
 };
 
