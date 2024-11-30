@@ -11,6 +11,8 @@ export default {
         textcolor: "#0f172a",
         hovercolor: "#fdf3e8",
         commentcolor: "#dbe7e7",
+        'fluorescent-yellow': '#ffee00',
+        'buttonpink': "#E6A4B4"
       },
       container: {
         padding: {
