@@ -1,18 +1,26 @@
 import Stack from "@mui/material/Stack";
 import HeaderBox from "../styles/headerStyles";
 import NavButton from "../styles/NavButton";
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const Nav = () => {
+const Nav = ({topics}) => {
+
+  const topicsArray = topics.map((topic) => topic.slug )
+  console.log(topicsArray);
+  
 
   const location = useLocation();
 
 
-  const currentCategory = location.pathname.split("/").pop(); 
+
+  let currentCategory = location.pathname.split("/").pop(); 
+  console.log(currentCategory)
   
 
   const getButtonStyle = (buttonName) => {
+    if (topicsArray.includes(currentCategory) && buttonName === "articles") {
+      return { backgroundColor: "yellow", borderRadius: "15px" };
+    }
     return currentCategory === buttonName
       ? { backgroundColor: "yellow", borderRadius: "15px" }
       : {};
@@ -38,13 +46,6 @@ const Nav = () => {
             sx={getButtonStyle("articles")}
           >
             <Link to="/articles">Articles</Link>
-          </NavButton>
-
-          <NavButton
-            variant="contained"
-            sx={getButtonStyle("users")}
-          >
-            <Link to="/users">Users</Link>
           </NavButton>
         </Stack>
       </nav>
