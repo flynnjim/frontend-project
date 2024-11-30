@@ -2,14 +2,9 @@ import { Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getAllArticles } from "../../api";
 import ArticleCard from "./ArticleCard";
-import HeaderBox from "../styles/headerStyles";
 import { useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import DropDown from "./DropDown";
-
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 
 import NotFoundPage from "./NotFoundPage";
 

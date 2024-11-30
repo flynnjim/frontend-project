@@ -1,21 +1,11 @@
 import HeaderBox from "../styles/headerStyles";
 import Stack from "@mui/material/Stack";
 import NavButton from "../styles/NavButton";
-import { getTopics } from "../../api";
-import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const Categories = () => {
-  const [topics, setTopics] = useState([]);
+const Categories = ({topics}) => {
+
   const location = useLocation();
-
-
-  useEffect(() => {
-    getTopics().then((response) => {
-      setTopics(response);
-    });
-  }, []);
-
 
   const currentCategory = location.pathname.split("/").pop(); 
   
