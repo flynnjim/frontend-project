@@ -1,111 +1,92 @@
-import { Box } from "@mui/material";
+import { useState } from "react";
 
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
+const DropDown = ({
+  setArticlesData,
+  setOrder,
+  setCommentCountSelected,
+  commentCountSelected,
+  articlesData,
+}) => {
+  const [sortBySelected, setSortBySelected] = useState("created_at");
+  const [orderSelected, setOrderSelected] = useState("DESC");
 
+  const handleOrderChange = (event) => {
+    const value = event.target.value;
+    setOrderSelected(value);
 
-const DropDown = ({setArticlesData, setOrder, setCommentCountSelected, commentCountSelected, articlesData, setSortByChosen}) => {
+    const sortedArticles = [...articlesData].sort((a, b) => {
+      if (sortBySelected === "comment_count") {
+        return value === "ASC"
+          ? a.comment_count - b.comment_count
+          : b.comment_count - a.comment_count;
+      } else if (sortBySelected === "created_at") {
+        return value === "ASC"
+          ? new Date(a.created_at) - new Date(b.created_at)
+          : new Date(b.created_at) - new Date(a.created_at);
+      } else if (sortBySelected === "votes") {
+        return value === "ASC" ? a.votes - b.votes : b.votes - a.votes;
+      }
+      return 0;
+    });
 
-    const handleOrderChange = (event) => {
-        const value = event.target.value;
-        if (commentCountSelected) {
-          if (value === "ASC") {
-            const sortedArticles = [...articlesData].sort(
-              (a, b) => b.comment_count - a.comment_count
-            );
-            setArticlesData(sortedArticles);
-          } else {
-            const sortedArticles = [...articlesData].sort(
-              (a, b) => a.comment_count - b.comment_count
-            );
-            setArticlesData(sortedArticles);
-          }
-        } else {
-          setOrder(value);
-        }
-      };
-    
-      const handleSortChange = (event) => {
-        if (event.target.value === "comment_count") {
-          setCommentCountSelected(true);
-          const sortedArticles = [...articlesData].sort(
-            (a, b) => b.comment_count - a.comment_count
-          );
-          setArticlesData(sortedArticles);
-        } else {
-          setCommentCountSelected(false);
-          setSortByChosen(event.target.value);
-        }
-      };
+    setArticlesData(sortedArticles);
+  };
 
-      return (
-    
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  background: "#F5EEE6",
-                  borderRadius: '30px',
-                  padding: 2,
-                  justifyContent: 'center',
-                  width: '100%',
-                  margin: '10px',
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormHelperText sx={{ color: "black", textAlign: "center" }}>
-                    Sort by
-                  </FormHelperText>
-                  <Select
-                    defaultValue=""
-                    label="Sort By"
-                    onChange={handleSortChange}
-                    sx={{
-                      width: "200px",
-                      marginLeft: "0",
-                    }}
-                  >
-                    <MenuItem value={""}>None</MenuItem>
-                    <MenuItem value={"created_at"}>Date</MenuItem>
-                    <MenuItem value={"comment_count"}>Comments</MenuItem>
-                    <MenuItem value={"votes"}>Votes</MenuItem>
-                  </Select>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormHelperText sx={{ color: "black", textAlign: "center" }}>
-                    Order
-                  </FormHelperText>
-                  <Select
-                    defaultValue=""
-                    label="ascending or descending"
-                    onChange={handleOrderChange}
-                    sx={{
-                      width: "200px",
-                      marginLeft: "0",
-                    }}
-                  >
-                    <MenuItem value={""}>None</MenuItem>
-                    <MenuItem value={"ASC"}>Ascending</MenuItem>
-                    <MenuItem value={"DESC"}>Descending</MenuItem>
-                  </Select>
-                </Box>
-              </Box>
-      )
-}
+  const handleSortChange = (event) => {
+    const value = event.target.value;
+    setSortBySelected(value);
 
-export default DropDown
+    if (value === "comment_count") {
+      setCommentCountSelected(true);
+    } else {
+      setCommentCountSelected(false);
+    }
+
+    const sortedArticles = [...articlesData].sort((a, b) => {
+      if (value === "comment_count") {
+        return orderSelected === "ASC"
+          ? a.comment_count - b.comment_count
+          : b.comment_count - a.comment_count;
+      } else if (value === "created_at") {
+        return orderSelected === "ASC"
+          ? new Date(a.created_at) - new Date(b.created_at)
+          : new Date(b.created_at) - new Date(a.created_at);
+      } else if (value === "votes") {
+        return orderSelected === "ASC" ? a.votes - b.votes : b.votes - a.votes;
+      }
+      return 0;
+    });
+
+    setArticlesData(sortedArticles);
+  };
+
+  return (
+    <div className="flex flex-row items-center justify-center bg-bgcolor rounded-2xl p-4 w-full">
+      <div className="flex flex-col items-center mx-4">
+        <label className="text-black text-center font-medium">Sort By</label>
+        <select
+          value={sortBySelected}
+          onChange={handleSortChange}
+          className="w-48 p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        >
+          <option value="created_at">Date</option>
+          <option value="comment_count">Comments</option>
+          <option value="votes">Votes</option>
+        </select>
+      </div>
+      <div className="flex flex-col items-center mx-4">
+        <label className="text-black text-center font-medium">Order</label>
+        <select
+          value={orderSelected}
+          onChange={handleOrderChange}
+          className="w-48 p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        >
+          <option value="ASC">Ascending</option>
+          <option value="DESC">Descending</option>
+        </select>
+      </div>
+    </div>
+  );
+};
+
+export default DropDown;
