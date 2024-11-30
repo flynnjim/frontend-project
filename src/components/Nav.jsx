@@ -1,55 +1,50 @@
-import Stack from "@mui/material/Stack";
-import HeaderBox from "../styles/headerStyles";
-import NavButton from "../styles/NavButton";
 import { Link, useLocation } from "react-router-dom";
 
-const Nav = ({topics}) => {
-
-  const topicsArray = topics.map((topic) => topic.slug )
+const Nav = ({ topics }) => {
+  const topicsArray = topics.map((topic) => topic.slug);
   console.log(topicsArray);
-  
 
   const location = useLocation();
 
+  const linkText =
+    "px-8 py-4 text-lg font-semibold block min-h-auto min-w-auto text-sm sm:text-base md:text-2xl lg:text-3xl";
 
-
-  let currentCategory = location.pathname.split("/").pop(); 
-  console.log(currentCategory)
-  
+  const currentCategory = location.pathname.split("/").pop();
 
   const getButtonStyle = (buttonName) => {
     if (topicsArray.includes(currentCategory) && buttonName === "articles") {
-      return { backgroundColor: "yellow", borderRadius: "15px" };
+      return "bg-fluorescent-yellow rounded-lg";
     }
     return currentCategory === buttonName
-      ? { backgroundColor: "yellow", borderRadius: "15px" }
-      : {};
+      ? "bg-fluorescent-yellow rounded-lg"
+      : "bg-buttonpink rounded-lg";
   };
 
   return (
-    <HeaderBox sx={{ backgroundColor: "#FFF8E3" }}>
-      <nav>
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{ width: "auto", maxWidth: 1000 }}
-        >
-          <NavButton
-            variant="contained"
-            sx={getButtonStyle("")}
-          >
-            <Link to="/">Home</Link>
-          </NavButton>
-
-          <NavButton
-            variant="contained"
-            sx={getButtonStyle("articles")}
-          >
-            <Link to="/articles">Articles</Link>
-          </NavButton>
-        </Stack>
+    <header className="bg-bgcolor rounded-lg p-4 w-full">
+      <nav aria-label="Main Navigation">
+        <ul className="flex space-x-10 mx-auto justify-center w-full">
+          <li className="transform hover:scale-105 transition-all">
+            <Link
+              to="/"
+              className={`${linkText}
+          ${getButtonStyle("")}`}
+            >
+              Home
+            </Link>
+          </li>
+          <li className="transform hover:scale-105 transition-all">
+            <Link
+              to="/articles"
+              className={`${linkText}
+                 ${getButtonStyle("articles")}`}
+            >
+              Articles
+            </Link>
+          </li>
+        </ul>
       </nav>
-    </HeaderBox>
+    </header>
   );
 };
 
