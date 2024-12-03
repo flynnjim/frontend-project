@@ -34,27 +34,27 @@ const Trending = () => {
   }
 
   return (
-    <div className="w-full px-4 py-8 border-4 border-green-500">
-      <h2 className="text-center text-2xl font-bold mb-6">Trending Articles</h2>
-      <div className="overflow-x-auto whitespace-nowrap border-4 border-green-500 p-2">
-        <ul className="flex space-x-4">
-          {articlesData.map((article) => (
-            <li key={article.article_id} className="flex-shrink-0">
-              <ArticleCard
-                article_img_url={article.article_img_url}
-                author={article.author}
-                comment_count={article.comment_count}
-                created_at={article.created_at}
-                title={article.title}
-                topic={article.topic}
-                article_id={article.article_id}
-                votes={article.votes}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className="overflow-x-auto px-4 py-8 border-4 border-green-500">
+    <div className="flex space-x-4">
+      {articlesData.map((article) => (
+        <div key={article.article_id} className="flex-shrink-0 w-[300px]">
+          <ArticleCard
+            article_img_url={article.article_img_url}
+            author={article.author}
+            comment_count={article.comment_count}
+            created_at={article.created_at}
+            title={article.title}
+            topic={article.topic}
+            article_id={article.article_id}
+            votes={article.votes}
+            body={article.body}
+          />
+        </div>
+      ))}
     </div>
+  </div>
+  
+  
   );
 };
 
