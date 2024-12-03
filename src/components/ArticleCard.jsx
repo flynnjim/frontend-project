@@ -8,7 +8,6 @@ const ArticleCard = ({
   title,
   topic,
   article_id,
-  body,
   votes,
 }) => {
   const formatDate = new Date(created_at)
