@@ -1,5 +1,3 @@
-import { ArticleCardContent } from "../styles/ArticleCardStyles"
-import { ArticleHeader } from "../styles/ArticleCardStyles"
 import Button from "@mui/material/Button"
 import { ArticleCardAction } from "../styles/ArticleCardStyles"
 import NavButton from "../styles/NavButton"
