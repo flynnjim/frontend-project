@@ -30,7 +30,7 @@ const ArticleCard = ({
           {topic}
         </header>
         <header className="h-[100px] bg-bgcolor text-left p-4">
-          <div>{title}</div>
+          <div className="whitespace-normal break-words">{title}</div>
           <div className="font-semibold text-red-500 italic text-center">
             {author}
           </div>
