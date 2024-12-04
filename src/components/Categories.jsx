@@ -24,10 +24,11 @@ const Categories = ({ topics }) => {
             <h2 className="text-center text-xl md:text-2xl font-bold pt-2">Categories</h2>
           </li>
 
-          {topics.map((topic) => {
+          {topics.map((topic, index) => {
+            const uniqueKey = `topic-${index}`
             const topicName = topic.slug;
             return (
-              <li className="transform hover:scale-105 transition-all">
+              <li key={uniqueKey} className="transform hover:scale-105 transition-all">
                 <Link
               to={`/categories/${topicName}`}
               className={`${linkText}

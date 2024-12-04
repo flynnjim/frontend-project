@@ -2,9 +2,7 @@ import { useState } from "react";
 
 const DropDown = ({
   setArticlesData,
-  setOrder,
   setCommentCountSelected,
-  commentCountSelected,
   articlesData,
 }) => {
   const [sortBySelected, setSortBySelected] = useState("created_at");

@@ -1,23 +1,4 @@
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import NavButton from "../styles/NavButton";
-import {
-  ArticleCardTypography,
-  ArticleCardContent,
-  ArticleCardAction,
-  ArticleCardContainer,
-  ArticleHeader,
-} from "../styles/ArticleCardStyles";
-import { getComments } from "../../api";
-import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
-import { voteArticle } from "../../api";
-import HeaderBox from "../styles/headerStyles";
-import TextField from "@mui/material/TextField";
-import { addComment } from "../../api";
-import { FormHelperText } from "@mui/material";
-import CommentForm from "./CommentForm";
 
 const CommentList = ({
   articleComments,
@@ -27,30 +8,27 @@ const CommentList = ({
   commentsFound,
   username,
   handleRemoveContentDisplay,
+  selectedUser,
 }) => {
   return (
     <>
       {!commentsFound && (
-        <ArticleCardTypography gutterBottom variant="body2" component="div">
-          No comments found
-        </ArticleCardTypography>
+        <p className="text-gray-500 text-sm mt-2">No comments found</p>
       )}
 
       {isLoadingComments && (
-        <ArticleCardTypography gutterBottom variant="body2" component="div">
-          Loading comments...
-        </ArticleCardTypography>
+        <p className="text-gray-500 text-sm mt-2">Loading comments...</p>
       )}
 
       {displayComments && commentsFound && (
         <>
           {successfulDeletedComment && (
-            <ArticleCardTypography gutterBottom variant="body2" component="div">
+            <p className="text-green-500 text-sm mt-2">
               Comment was successfully deleted
-            </ArticleCardTypography>
+            </p>
           )}
 
-          <ul id="item-list">
+          <ul id="item-list" className="space-y-4 mt-4">
             {articleComments.map((comment) => (
               <li key={comment.comment_id}>
                 <CommentCard
@@ -63,6 +41,7 @@ const CommentList = ({
                   votes={comment.votes}
                   username={username}
                   handleRemoveContentDisplay={handleRemoveContentDisplay}
+                  selectedUser={selectedUser}
                 />
               </li>
             ))}
