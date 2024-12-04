@@ -20,6 +20,8 @@ import { Route, Routes, Navigate } from "react-router-dom";
 function App() {
 
   const [topics, setTopics] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
+  
 
   useEffect(() => {
     getTopics().then((response) => {
@@ -30,7 +32,7 @@ function App() {
   return (
     <>
       <Header/>
-      <Nav topics={topics}/>
+      <Nav topics={topics} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
       <Categories topics={topics}/>
       <Routes>
         <Route path="/" element={<Trending />} />
@@ -38,7 +40,7 @@ function App() {
         <Route path='/articles' element ={<><Articles/></>}/>
         <Route
           path='articles/:article_id'
-          element={<><ArticleSingleCard/></>}
+          element={<><ArticleSingleCard selectedUser={selectedUser}/></>}
         />
         <Route
           path="/categories/:category"

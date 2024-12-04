@@ -7,7 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Typography, Box } from "@mui/material";
 import WholeArticlePage from "./WholeArticlePage";
 
-const ArticleSingleCard = () => {
+const ArticleSingleCard = ({selectedUser}) => {
   const [currentArticle, setCurrentArticle] = useState({
     article_img_url:
       "https://res.cloudinary.com/cloudinary-marketing/images/w_1540,h_1083/f_auto,q_auto/v1649725549/Web_Assets/blog/loading-645268_1280/loading-645268_1280-jpg?_i=AA",
@@ -19,6 +19,7 @@ const ArticleSingleCard = () => {
     article_id: "",
     votes: 0,
   });
+
 
   const { article_id } = useParams();
 
@@ -80,6 +81,7 @@ const ArticleSingleCard = () => {
           <NotFoundPage />
         ) : (
           <WholeArticlePage
+          selectedUser={selectedUser}
             article_img_url={currentArticle.article_img_url}
             author={currentArticle.author}
             comment_count={currentArticle.comment_count}

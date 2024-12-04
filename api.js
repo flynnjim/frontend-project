@@ -62,3 +62,9 @@ export const getTopics = () => {
     return data;
   });
 };
+
+export const getUsers = () => {
+  return ncnewsApi.get("/users").then(({data}) => {
+    return data
+  })
+}
