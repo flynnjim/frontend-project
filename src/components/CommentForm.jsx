@@ -1,17 +1,15 @@
 import { useState } from "react";
-import NavButton from "../styles/NavButton";
-import { ArticleCardTypography } from "../styles/ArticleCardStyles";
-import HeaderBox from "../styles/headerStyles";
-import TextField from "@mui/material/TextField";
-import { FormHelperText } from "@mui/material";
 import { addComment } from "../../api";
 
-const CommentForm = ({ commentFormOpen, article_id, handleNewComment }) => {
-  const [usernameForm, setUsernameForm] = useState("");
+const CommentForm = ({
+  commentFormOpen,
+  article_id,
+  handleNewComment,
+  username,
+}) => {
   const [commentBodyForm, setCommentBodyForm] = useState("");
   const [errorSubmitting, setErrorSubmitting] = useState(false);
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
-  const [usernameLabel, setUsernameLabel] = useState("");
   const [commentBodyLabel, setCommentBodyLabel] = useState("");
   const [successfulCommentPost, setSuccessfulCommentPost] = useState(false);
 
@@ -21,35 +19,27 @@ const CommentForm = ({ commentFormOpen, article_id, handleNewComment }) => {
     setCommentBodyForm(event.target.value);
   };
 
-  const handleUserNamechange = (event) => {
-    setUsernameLabel("");
-    setSuccessfulCommentPost(false);
-    setUsernameForm(event.target.value);
-  };
-
   const submitComment = () => {
     setSuccessfulCommentPost(false);
     setErrorSubmitting(false);
 
-    if (!usernameForm && !commentBodyForm) {
-      setUsernameLabel("fill in username");
-      setCommentBodyLabel("fill in comment text");
-    } else if (!usernameForm) {
-      setUsernameLabel("fill in username");
-    } else if (!commentBodyForm) {
-      setCommentBodyLabel("fill in comment text");
+    if (!username || !commentBodyForm) {
+      if (!username) {
+        setErrorSubmitting(true);
+      }
+      if (!commentBodyForm) {
+        setCommentBodyLabel("Please fill in the comment text.");
+      }
     } else {
       setSubmitButtonDisabled(true);
 
-      addComment(article_id, usernameForm, commentBodyForm)
+      addComment(article_id, username, commentBodyForm)
         .then((response) => {
           setErrorSubmitting(false);
           setSuccessfulCommentPost(true);
-          setCommentBodyForm("");
-          setUsernameForm("");
-
+          setCommentBodyForm(""); 
           const newComment = response.data[0];
-          handleNewComment(newComment)
+          handleNewComment(newComment); 
         })
         .catch((err) => {
           setErrorSubmitting(true);
@@ -66,56 +56,50 @@ const CommentForm = ({ commentFormOpen, article_id, handleNewComment }) => {
   if (!commentFormOpen) {
     return null;
   }
+
   return (
-    <>
-      <HeaderBox
-        sx={{ display: "flex", flexDirection: "column" }}
-        component="form"
-        noValidate
-        autoComplete="off"
-      >
-        <h1>comment form</h1>
-        <TextField
-          required
-          id="user-name-input"
-          label="user name"
-          value={usernameForm}
-          onChange={handleUserNamechange}
-        />
-        <FormHelperText sx={{ color: "red" }}>{usernameLabel}</FormHelperText>
-        <TextField
-          required
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
+      
+      <div className="mb-4">
+        <textarea
           id="body-input"
-          label="comment text"
           value={commentBodyForm}
           onChange={handleCommentBodyChange}
-          multiline
-          maxRows={5}
+          placeholder="Write your comment..."
+          className="w-full p-2 border border-gray-300 rounded-lg resize-none"
+          rows="4"
         />
-        <FormHelperText sx={{ color: "red" }}>
-          {commentBodyLabel}
-        </FormHelperText>
+        {commentBodyLabel && (
+          <p className="text-red-500 text-sm mt-2">{commentBodyLabel}</p>
+        )}
+      </div>
 
-        {errorSubmitting ? (
-          <ArticleCardTypography gutterBottom variant="body2" component="div">
-            Error submitting form, check username is correct and try again
-          </ArticleCardTypography>
-        ) : null}
+      {errorSubmitting && (
+        <p className="text-red-500 text-sm mb-4">
+          Error submitting the comment. Please ensure you are logged in.
+        </p>
+      )}
 
-        {successfulCommentPost ? (
-          <ArticleCardTypography gutterBottom variant="body2" component="div">
-            Your comment was successfully posted
-          </ArticleCardTypography>
-        ) : null}
-      </HeaderBox>
+      {successfulCommentPost && (
+        <p className="text-green-500 text-sm mb-4">
+          Your comment was successfully posted!
+        </p>
+      )}
 
-      <HeaderBox>
-        <NavButton onClick={submitComment} disabled={submitButtonDisabled}>
-          Submit comment
-        </NavButton>
-      </HeaderBox>
-    </>
+      <div className="flex justify-center text-black-500">
+        <button
+          onClick={submitComment}
+          disabled={submitButtonDisabled}
+          className={`px-6 py-2 text-black rounded-lg w-full max-w-xs mt-4 
+            ${submitButtonDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-buttonpink'} 
+            transition-all`}
+        >
+          Submit Comment
+        </button>
+      </div>
+    </div>
   );
 };
 
 export default CommentForm;
+3

@@ -1,10 +1,7 @@
-import ArticleCard from "./ArticleCard";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getCurrentArticle } from "../../api";
 import NotFoundPage from "./NotFoundPage";
-import CircularProgress from "@mui/material/CircularProgress";
-import { Typography, Box } from "@mui/material";
 import WholeArticlePage from "./WholeArticlePage";
 
 const ArticleSingleCard = ({selectedUser}) => {

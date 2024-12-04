@@ -13,7 +13,6 @@ const WholeArticlePage = ({
   comment_count,
   created_at,
   title,
-  topic,
   article_id,
   body,
   votes,
@@ -109,7 +108,6 @@ const WholeArticlePage = ({
   return (
     <section className="w-[100%] h-[100%] rounded-lg overflow-hidden bg-bgcolor p-4">
       <WholeArticleContent
-        topic={topic}
         title={title}
         article_img_url={article_img_url}
         author={author}
@@ -119,16 +117,14 @@ const WholeArticlePage = ({
         voteFailed={voteFailed}
         voteFailedMessage={voteFailedMessage}
         body={body}
+        addVote={addVote}
       />
 
       <ArticleCardActionComponent
         body={body}
-        article_id={article_id}
         getArticleComments={getArticleComments}
         isLoadingComments={isLoadingComments}
         buttonDisplay={buttonDisplay}
-        addVote={addVote}
-        buttonVoteDisabled={buttonVoteDisabled}
         openCommentForm={openCommentForm}
       />
 
@@ -136,6 +132,7 @@ const WholeArticlePage = ({
         commentFormOpen={commentFormOpen}
         article_id={article_id}
         handleNewComment={handleNewComment}
+        username={username}
       />
 
       <CommentList
@@ -146,6 +143,7 @@ const WholeArticlePage = ({
         commentsFound={commentsFound}
         username={username}
         handleRemoveContentDisplay={handleRemoveContentDisplay}
+        selectedUser={selectedUser}
       />
     </section>
   );
