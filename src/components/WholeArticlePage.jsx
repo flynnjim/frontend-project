@@ -1,14 +1,13 @@
-import { ArticleCardContainer } from "../styles/ArticleCardStyles";
 import { getComments } from "../../api";
 import { useState } from "react";
 import { voteArticle } from "../../api";
-import { addComment } from "../../api";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import ArticleCardActionComponent from "./ArticleCardActionComponent";
 import WholeArticleContent from "./WholeArticleContent";
 
 const WholeArticlePage = ({
+  selectedUser,
   article_img_url,
   author,
   comment_count,
@@ -33,7 +32,7 @@ const WholeArticlePage = ({
   const [voteFailedMessage, setVoteFailedMessage] = useState("");
   const [commentsNotLoaded, setCommentsNotLoaded] = useState(true);
 
-  const username = "grumpy19";
+  const username = selectedUser;
 
   const handleRemoveContentDisplay = (delete_comment_id) => {
     setSuccessfulDeletedComment(true);
