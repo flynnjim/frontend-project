@@ -3,7 +3,9 @@ import { getAllArticles } from "../../api";
 import ArticleCard from "./ArticleCard";
 
 const Trending = () => {
-  const [articlesData, setArticlesData] = useState([]);
+  const [trendingArticles, setTrendingArticles] = useState([]);
+  const [recentArticles, setRecentArticles] = useState([]);
+  const [mostCommentedArticles, setMostCommentedArticles] = useState([]);
   const [isPageLoading, setIsPageLoading] = useState(true);
 
   useEffect(() => {
@@ -13,7 +15,17 @@ const Trending = () => {
         const topArticles = articles
           .sort((a, b) => b.votes - a.votes)
           .slice(0, 6);
-        setArticlesData(topArticles);
+        setTrendingArticles(topArticles);
+
+        const recent = articles
+          .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+          .slice(0, 6);
+        setRecentArticles(recent);
+
+        const mostCommented = articles
+          .sort((a, b) => b.comment_count - a.comment_count)
+          .slice(0, 6);
+        setMostCommentedArticles(mostCommented);
       })
       .catch((err) => {
         console.error("Error fetching articles:", err);
@@ -27,9 +39,7 @@ const Trending = () => {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-        <p className="ml-4 text-lg font-semibold">
-          Loading trending articles...
-        </p>
+        <p className="ml-4 text-lg font-semibold">Loading articles...</p>
       </div>
     );
   }
@@ -42,9 +52,9 @@ const Trending = () => {
         </h2>
       </div>
       <div className="overflow-x-auto whitespace-nowrap p-2 sm:w-[500px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
-        <div className="flex space-x-4 min-w-max">
-          {articlesData.map((article) => (
-            <div key={article.article_id} className="w-full sm:w-[340px]">
+        <ul className="flex space-x-4 min-w-max">
+          {trendingArticles.map((article) => (
+            <li key={article.article_id}>
               <ArticleCard
                 article_img_url={article.article_img_url}
                 author={article.author}
@@ -55,9 +65,56 @@ const Trending = () => {
                 article_id={article.article_id}
                 votes={article.votes}
               />
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
+      </div>
+
+      <div className="whitespace-nowrap mt-8 text-left">
+        <h2 className="text-4xl font-extrabold text-florescent-yellow mt-6 mb-4 transform transition-all hover:scale-105 text-left">
+          Recent articles
+        </h2>
+      </div>
+      <div className="overflow-x-auto whitespace-nowrap p-2 sm:w-[500px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
+        <ul className="flex space-x-4 min-w-max">
+          {recentArticles.map((article) => (
+            <li key={article.article_id}>
+              <ArticleCard
+                article_img_url={article.article_img_url}
+                author={article.author}
+                comment_count={article.comment_count}
+                created_at={article.created_at}
+                title={article.title}
+                topic={article.topic}
+                article_id={article.article_id}
+                votes={article.votes}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="whitespace-nowrap mt-8 text-left">
+        <h2 className="text-4xl font-extrabold text-florescent-yellow mt-6 mb-4 transform transition-all hover:scale-105 text-left">
+          Articles users love to discuss!
+        </h2>
+      </div>
+      <div className="overflow-x-auto whitespace-nowrap p-2 sm:w-[500px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
+        <ul className="flex space-x-4 min-w-max">
+          {mostCommentedArticles.map((article) => (
+            <li key={article.article_id}>
+              <ArticleCard
+                article_img_url={article.article_img_url}
+                author={article.author}
+                comment_count={article.comment_count}
+                created_at={article.created_at}
+                title={article.title}
+                topic={article.topic}
+                article_id={article.article_id}
+                votes={article.votes}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
