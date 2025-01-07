@@ -31,9 +31,8 @@ function App() {
 
   return (
     <>
-      <Header/>
+      <Header selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
       <Nav topics={topics} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
-      <Categories topics={topics}/>
       <Routes>
         <Route path="/" element={<Trending />} />
         <Route path="*" element={<NotFoundPage/>} />
@@ -48,7 +47,7 @@ function App() {
             <><Articles/></>
           }
         />
-      </Routes>
+      </Routes> 
     </>
   )
 }
