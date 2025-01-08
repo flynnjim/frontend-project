@@ -46,12 +46,12 @@ const Trending = () => {
 
   return (
     <>
-      <div className="whitespace-nowrap mt-3 text-left">
-        <h2 className="text-4xl font-extrabold text-florescent-yellow mt-6 mb-4 transform transition-all hover:scale-105 text-left">
+      <div className="whitespace-nowrap mt-3 text-left w-full">
+        <h2 className="w-full text-3xl font-extrabold text-florescent-yellow mt-6 mb-4 transform transition-all hover:scale-105 text-left">
           Trending articles
         </h2>
       </div>
-      <div className="overflow-x-auto whitespace-nowrap p-2 sm:w-[500px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
+      <div className="overflow-x-auto whitespace-nowrap p-2 w-full">
         <ul className="flex space-x-4 min-w-max">
           {trendingArticles.map((article) => (
             <li key={article.article_id}>
@@ -70,12 +70,12 @@ const Trending = () => {
         </ul>
       </div>
 
-      <div className="whitespace-nowrap mt-8 text-left">
-        <h2 className="text-4xl font-extrabold text-florescent-yellow mt-6 mb-4 transform transition-all hover:scale-105 text-left">
+      <div className="whitespace-nowrap mt-8 text-left w-full">
+        <h2 className="text-3xl font-extrabold text-florescent-yellow mt-6 mb-4 transform transition-all hover:scale-105 text-left">
           Recent articles
         </h2>
       </div>
-      <div className="overflow-x-auto whitespace-nowrap p-2 sm:w-[500px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
+      <div className="overflow-x-auto whitespace-nowrap p-2 w-full">
         <ul className="flex space-x-4 min-w-max">
           {recentArticles.map((article) => (
             <li key={article.article_id}>
@@ -93,12 +93,12 @@ const Trending = () => {
           ))}
         </ul>
       </div>
-      <div className="whitespace-nowrap mt-8 text-left">
+      <div className="mt-8 text-left w-full">
         <h2 className="text-4xl font-extrabold text-florescent-yellow mt-6 mb-4 transform transition-all hover:scale-105 text-left">
           Articles users love to discuss!
         </h2>
       </div>
-      <div className="overflow-x-auto whitespace-nowrap p-2 sm:w-[500px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
+      <div className="overflow-x-auto whitespace-nowrap p-2 w-full">
         <ul className="flex space-x-4 min-w-max">
           {mostCommentedArticles.map((article) => (
             <li key={article.article_id}>
