@@ -59,7 +59,7 @@ const DropDown = ({
   };
 
   return (
-    <div className="flex flex-row items-center justify-center bg-bgcolor rounded-2xl p-4 w-full">
+    <div className="flex flex-row flex-wrap items-center justify-center bg-bgcolor rounded-2xl p-4 w-full">
       <div className="flex flex-col items-center mx-4">
         <label className="text-black text-center font-medium">Sort By</label>
         <select

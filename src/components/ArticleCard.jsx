@@ -17,7 +17,7 @@ const ArticleCard = ({
     .join(" ");
 
   return (
-    <section className="w-[350px] h-[630px] rounded-lg overflow-hidden bg-cardcolor p-4 m-2">
+    <section className="w-[280px] h-[560px] rounded-lg overflow-hidden bg-cardcolor p-2 m-2">
       <div className="relative w-full aspect-square">
         <img
           src={article_img_url}
