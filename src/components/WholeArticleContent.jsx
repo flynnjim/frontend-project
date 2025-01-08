@@ -42,12 +42,12 @@ const WholeArticleContent = ({
   return (
     <>
       <section>
-        <header className="h-[60px] bg-bgcolor text-center text-4xl sm:text-2xl md:text-3xl lg:text-4xl overflow-hidden text-ellipsis pb-10 underline text-gray-600">
+        <header className="bg-bgcolor text-center sm:text-2xl md:text-3xl lg:text-4xl overflow-hidden text-ellipsis pb-4 underline text-black">
           {title}
         </header>
       </section>
 
-      <div className="flex flex-col custom:flex-row items-start gap-4 mt-6">
+      <div className="flex flex-col custom:flex-row items-start gap-4">
         <section className="relative custom:w-2/5">
           <img
             src={article_img_url}
@@ -66,16 +66,16 @@ const WholeArticleContent = ({
         </section>
       </div>
 
-      <section className="p-4 bg-bgcolor shadow-md rounded-md mt-6">
-        <div className="flex flex-wrap justify-end">
-          <p className="text-3xl text-gray-700 mr-6 mb-2">
+      <section className="p-4 bg-bgcolor rounded-md mt-6">
+        <div className="flex flex-wrap justify-center">
+          <p className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-gray-700 mr-6 mb-2">
             <span className="font-semibold"></span>🕒 {formatDate}
           </p>
-          <p className="text-3xl text-gray-700 mr-6 mb-2">
+          <p className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-gray-700 mr-6 mb-2">
             <span className="font-semibold"></span>💬 {comment_count}
           </p>
           <p
-            className={`text-3xl mr-6 mb-2 cursor-pointer ${
+            className={`sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mr-6 mb-2 cursor-pointer ${
               cooldown
                 ? "text-gray-400"
                 : "text-gray-700 hover:text-blue-600"
