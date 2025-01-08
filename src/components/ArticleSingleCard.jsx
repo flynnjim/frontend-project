@@ -42,7 +42,7 @@ const ArticleSingleCard = ({selectedUser}) => {
 
   if (isPageLoading) {
     return (
-      <div className="flex items-center justify-center space-x-4">
+      <div className="flex items-center justify-center space-x-4 w-full">
         <div className="animate-spin">
           <svg className="w-8 h-8 text-gray-500" viewBox="0 0 50 50">
             <circle

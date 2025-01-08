@@ -106,7 +106,7 @@ const WholeArticlePage = ({
   };
 
   return (
-    <section className="w-[100%] h-[100%] rounded-lg overflow-hidden bg-bgcolor p-4">
+    <section className="rounded-lg overflow-hidden bg-bgcolor p-4">
       <WholeArticleContent
         title={title}
         article_img_url={article_img_url}
