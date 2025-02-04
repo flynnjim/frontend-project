@@ -23,9 +23,9 @@ const Header = ({ selectedUser, setSelectedUser }) => {
       : "bg-buttonpink text-black";
   };
   return (
-    <header className="w-full bg-cardcolor text-left py-3 sm:py-5 md:py-7 flex space-x-4 justify-between border border-black-500">
-      <h1 className="px-4 text-2xl font-bold text-gray-800 sm:text-5xl md:text-6xl border-red-500">
-        NEWS ATTACK
+    <header className="w-full bg-cardcolor text-left py-3 sm:py-5 md:py-7 flex space-x-4 justify-between">
+      <h1 className="px-4 text-lg font-bold text-gray-800 sm:text-3xl md:text-3xl border-red-500">
+        The Code Chronicle
       </h1>
       <ul className="flex justify-end">
         <li className="flex justify-end">
