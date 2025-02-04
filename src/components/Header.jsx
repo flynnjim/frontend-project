@@ -27,8 +27,8 @@ const Header = ({ selectedUser, setSelectedUser }) => {
           <img
             src={
               selectedUser
-                ? `/public/assets/${selectedUser}.png`
-                : "/public/assets/pngegg.png"
+                ? `/assets/${selectedUser}.png`
+                : "/assets/pngegg.png"
             }
             alt={selectedUser ? `Logged in as ${selectedUser}` : "Login"}
             className="w-6 h-6 md:w-10 md:h-10 lg:w-14 lg:h-14 cursor-pointer hover:opacity-80 transition-all duration-300 ease-in-out"
@@ -53,7 +53,7 @@ const Header = ({ selectedUser, setSelectedUser }) => {
                     >
                       {username}
                       <img
-                        src={`/public/assets/${username}.png`}
+                        src={`/assets/${username}.png`}
                         alt={
                           selectedUser
                             ? `Logged in as ${selectedUser}`
