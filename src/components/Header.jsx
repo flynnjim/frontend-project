@@ -19,7 +19,7 @@ const Header = ({ selectedUser, setSelectedUser }) => {
 
   return (
     <header className="w-full bg-cardcolor text-left py-3 sm:py-5 md:py-7 flex space-x-4 justify-between items-center">
-      <h1 className="px-1 text-lg font-bold text-gray-800 sm:text-3xl md:text-3xl border-red-500">
+      <h1 className="px-1 text-lg font-extrabold text-gray-800 sm:text-3xl md:text-3xl border-red-500 tracking-tight">
         The Code Chronicles
       </h1>
       <ul className="flex justify-end">
