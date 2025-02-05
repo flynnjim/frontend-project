@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
 
+import Display from "./components/Display";
 import Articles from "./components/Articles";
 import ArticleSingleCard from "./components/ArticleSingleCard";
 import NotFoundPage from "./components/NotFoundPage";
@@ -34,16 +35,9 @@ function App() {
           setSelectedUser={setSelectedUser}
         />
         <Routes>
-          <Route path="/" element={<Trending />} />
+          <Route path="/" element={<Display />} />
           <Route path="*" element={<NotFoundPage />} />
-          <Route
-            path="/articles"
-            element={
-              <>
-                <Articles />
-              </>
-            }
-          />
+
           <Route
             path="articles/:article_id"
             element={
@@ -56,7 +50,7 @@ function App() {
             path="/categories/:category"
             element={
               <>
-                <Articles />
+                <Display />
               </>
             }
           />

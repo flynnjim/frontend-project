@@ -28,14 +28,14 @@ const Nav = ({ topics }) => {
             </Link>
           </li>
 
-          <li className="transform hover:scale-105 transition-all">
+          {/* <li className="transform hover:scale-105 transition-all">
             <Link
               to="/articles"
               className={`${linkText} ${getButtonStyle("articles")}`}
             >
               Articles
             </Link>
-          </li>
+          </li> */}
           {topics.map((topic, index) => {
             const uniqueKey = `topic-${index}`;
             const topicName = topic.slug;
