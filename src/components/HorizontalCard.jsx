@@ -9,12 +9,15 @@ const HorizontalCard = ({
   topic,
   article_id,
   votes,
+  position,
 }) => {
   const formatDate = new Date(created_at)
     .toString()
     .split(" ")
     .slice(0, 1)
     .join(" ");
+
+  // console.log(position);
 
   return (
     <section className="w-full overflow-hidden bg-bgcolor p-2 pt-4 flex">
@@ -23,7 +26,7 @@ const HorizontalCard = ({
           <img
             src={article_img_url}
             alt="Article"
-            className="w-full h-full object-cover rounded-sm"
+            className="w-full h-full object-cover rounded-sm transition-all transform duration-300 hover:scale-105 hover:opacity-80"
           />
         </Link>
       </div>
@@ -31,7 +34,10 @@ const HorizontalCard = ({
       <div className="">
         <section>
           <header className="bg-bgcolor mt-2 ml-2">
-            <Link to={`/articles/${article_id}`} className="hover:text-red-500">
+            <Link
+              to={`/articles/${article_id}`}
+              className="hover:text-cardcolor"
+            >
               <div className="whitespace-normal break-words text-left ">
                 {title}
               </div>
@@ -39,7 +45,7 @@ const HorizontalCard = ({
           </header>
         </section>
 
-        <div className="bg-bgcolor py-2 p-2 left-0 flex gap-2 justify-center">
+        <div className="bg-bgcolor py-2 p-2 left-0 flex gap-2 justify-start">
           <div className="mr-8">{author}</div>
           <p className="text-sm text-gray-700">
             <span className="font-semibold">💬</span> {comment_count}

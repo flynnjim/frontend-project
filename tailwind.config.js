@@ -13,6 +13,7 @@ export default {
         commentcolor: "#dbe7e7",
         "fluorescent-yellow": "#ffee00",
         buttonpink: "#E6A4B4",
+        lightgray: "#eeeee",
       },
       container: {
         padding: {

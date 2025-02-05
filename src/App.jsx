@@ -1,12 +1,9 @@
 import "./App.css";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
-
 import Display from "./components/Display";
-import Articles from "./components/Articles";
 import ArticleSingleCard from "./components/ArticleSingleCard";
 import NotFoundPage from "./components/NotFoundPage";
-import Trending from "./components/Trending";
 import { useEffect, useState } from "react";
 import { getTopics } from "../api";
 

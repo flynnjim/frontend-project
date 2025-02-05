@@ -1,7 +1,6 @@
 import { Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getAllArticles } from "../../api";
-import ArticleCard from "./ArticleCard";
 import { useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import DropDown from "./DropDown";
@@ -33,6 +32,29 @@ const Display = () => {
 
   const { category } = useParams();
 
+  const useWindowWidth = () => {
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return width;
+  };
+
+  const width = useWindowWidth();
+  const isSmall = width < 768;
+  const isMedium = width >= 768 && width < 1024;
+  const isLarge = width >= 1024;
+
+  const firstArray = isLarge
+    ? articlesData.slice(1, 4)
+    : articlesData.slice(1, 3);
+
+  const secondArray = isLarge ? articlesData.slice(4) : articlesData.slice(3);
+
   useEffect(() => {
     setIsPageLoading(true);
     getAllArticles(category, sortByChosen, order)
@@ -62,89 +84,74 @@ const Display = () => {
           <NotFoundPage />
         ) : (
           <>
-            <div className="">
-              <div className="grid grid-cols-2 gap-2 bg-bgcolor">
-                <ul className="flex flex-col col-span-2">
-                  <div className="flex flex-col col-span-2">
-                    <li key={articlesData[0].article_id}>
-                      <VerticalCard
-                        article_img_url={articlesData[0].article_img_url}
-                        author={articlesData[0].author}
-                        comment_count={articlesData[0].comment_count}
-                        created_at={articlesData[0].created_at}
-                        title={articlesData[0].title}
-                        topic={articlesData[0].topic}
-                        article_id={articlesData[0].article_id}
-                        votes={articlesData[0].votes}
-                      />
-                    </li>
-                  </div>
-                </ul>
-                <ul className="flex flex-col">
-                  <div>
-                    <li key={articlesData[1].article_id}>
-                      <VerticalCard
-                        article_img_url={articlesData[1].article_img_url}
-                        author={articlesData[1].author}
-                        comment_count={articlesData[1].comment_count}
-                        created_at={articlesData[1].created_at}
-                        title={articlesData[1].title}
-                        topic={articlesData[1].topic}
-                        article_id={articlesData[1].article_id}
-                        votes={articlesData[1].votes}
-                      />
-                    </li>
-                  </div>
-                </ul>
-                <ul className="flex flex-col">
-                  <div>
-                    <li key={articlesData[2].article_id}>
-                      <VerticalCard
-                        article_img_url={articlesData[2].article_img_url}
-                        author={articlesData[2].author}
-                        comment_count={articlesData[2].comment_count}
-                        created_at={articlesData[2].created_at}
-                        title={articlesData[2].title}
-                        topic={articlesData[2].topic}
-                        article_id={articlesData[2].article_id}
-                        votes={articlesData[2].votes}
-                      />
-                    </li>
-                  </div>
-                </ul>
-                {/* <ul className="flex flex-col">
-                  <div>
-                    <li key={articlesData[2].article_id}>
-                      <
-                        article_img_url={articlesData[2].article_img_url}
-                        author={articlesData[2].author}
-                        comment_count={articlesData[2].comment_count}
-                        created_at={articlesData[2].created_at}
-                        title={articlesData[2].title}
-                        topic={articlesData[2].topic}
-                        article_id={articlesData[2].article_id}
-                        votes={articlesData[2].votes}
-                      />
-                    </li>
-                  </div>
-                </ul> */}
-                <ul className="flex flex-col col-span-2">
-                  {articlesData.map((article) => (
-                    <li key={article.article_id}>
-                      <HorizontalCard
-                        article_img_url={article.article_img_url}
-                        author={article.author}
-                        comment_count={article.comment_count}
-                        created_at={article.created_at}
-                        title={article.title}
-                        topic={article.topic}
-                        article_id={article.article_id}
-                        votes={article.votes}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className="grid grid-cols-2 gap-2 md:gap-6 md:grid-cols-4 lg:grid-cols-6 bg-bgcolor ">
+              <ul className="col-span-2 md:col-span-2 lg:col-span-3  md:row-span-2 divide-y divide-black-100 border-b-2 border-black-100">
+                <div className="col-span-2 md:col-span-3 bg-red">
+                  <li key={articlesData[0].article_id}>
+                    <VerticalCard
+                      article_img_url={articlesData[0].article_img_url}
+                      author={articlesData[0].author}
+                      comment_count={articlesData[0].comment_count}
+                      created_at={articlesData[0].created_at}
+                      title={articlesData[0].title}
+                      topic={articlesData[0].topic}
+                      article_id={articlesData[0].article_id}
+                      votes={articlesData[0].votes}
+                    />
+                  </li>
+                </div>
+              </ul>
+
+              {firstArray.map((article, i) => (
+                <div
+                  key={article.article_id}
+                  className="row-span-2 md:row-span-1 lg:row-span-2 lg:col-span-1 divide-y divide-black-100 md:col-span-2 border-b-2 border-black-100"
+                >
+                  {isLarge || isSmall ? (
+                    <VerticalCard
+                      article_img_url={article.article_img_url}
+                      author={article.author}
+                      comment_count={article.comment_count}
+                      created_at={article.created_at}
+                      title={article.title}
+                      topic={article.topic}
+                      article_id={article.article_id}
+                      votes={article.votes}
+                      position={i}
+                    />
+                  ) : (
+                    <HorizontalCard
+                      article_img_url={article.article_img_url}
+                      author={article.author}
+                      comment_count={article.comment_count}
+                      created_at={article.created_at}
+                      title={article.title}
+                      topic={article.topic}
+                      article_id={article.article_id}
+                      votes={article.votes}
+                      position={i}
+                    />
+                  )}
+                </div>
+              ))}
+              {secondArray.map((article, i) => (
+                <div
+                  key={article.article_id}
+                  className="col-span-2 divide-y divide-black-100 border-b-2 border-black-100"
+                >
+                  <HorizontalCard
+                    article_img_url={article.article_img_url}
+                    author={article.author}
+                    comment_count={article.comment_count}
+                    created_at={article.created_at}
+                    title={article.title}
+                    topic={article.topic}
+                    article_id={article.article_id}
+                    votes={article.votes}
+                    position={i}
+                  />
+                </div>
+              ))}
             </div>
           </>
         )}
