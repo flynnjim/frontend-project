@@ -1,48 +1,8 @@
-import { useState } from "react";
-
-const WholeArticleContent = ({
-  title,
-  article_img_url,
-  author,
-  comment_count,
-  created_at,
-  currentVotes,
-  voteFailed,
-  voteFailedMessage,
-  body,
-  addVote,
-}) => {
-  const [isVoting, setIsVoting] = useState(false); 
-  const [cooldown, setCooldown] = useState(false); 
-
-  const handleVote = async () => {
-    if (cooldown) return; 
-
-    setIsVoting(true); 
-    setCooldown(true);
-
-    try {
-      await addVote();
-    } catch (error) {
-      console.error("Vote failed", error);
-    } finally {
-      setIsVoting(false);
-      setTimeout(() => setCooldown(false), 3000); 
-    }
-  };
-
-  const formatDate =
-    new Date(created_at)
-      .toString()
-      .split(" ")
-      .slice(0, 5)
-      .join(" ")
-      .slice(0, -3) + " GMT";
-
+const WholeArticleContent = ({ title, article_img_url, author, body }) => {
   return (
     <>
       <section>
-        <header className="bg-bgcolor text-center sm:text-2xl md:text-3xl lg:text-4xl overflow-hidden text-ellipsis pb-4 underline text-black">
+        <header className="bg-bgcolor text-left font-extrabold text-gray-800 text-xl overflow-hidden text-ellipsis pb-4 text-black p-1 pt-4 pb-8">
           {title}
         </header>
       </section>
@@ -56,40 +16,16 @@ const WholeArticleContent = ({
           />
         </section>
 
-        <section className="flex-1 flex flex-col items-center justify-center px-4">
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-700">
+        <section className="flex-1 flex flex-col items-left justify-left px-2">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-700 text-left mb-4">
             {body}
           </p>
-          <p className="sm:text-lg md:text-xl lg:text-2xl xl:text-3xl pt-6 text-red-500 font-bold italic">
+
+          <p className="sm:text-lg md:text-xl lg:text-2xl xl:text-3xl pt-2 font-bold italic text-left">
             {author}
           </p>
         </section>
       </div>
-
-      <section className="p-4 bg-bgcolor rounded-md mt-6">
-        <div className="flex flex-wrap justify-center">
-          <p className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-gray-700 mr-6 mb-2">
-            <span className="font-semibold"></span>🕒 {formatDate}
-          </p>
-          <p className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-gray-700 mr-6 mb-2">
-            <span className="font-semibold"></span>💬 {comment_count}
-          </p>
-          <p
-            className={`sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mr-6 mb-2 cursor-pointer ${
-              cooldown
-                ? "text-gray-400"
-                : "text-gray-700 hover:text-blue-600"
-            }`}
-            onClick={handleVote}
-          >
-            <span className="font-semibold">👍 </span>
-            {isVoting ? "Voting..." : currentVotes}
-          </p>
-          {voteFailed && (
-            <p className="text-sm text-red-500 mt-4">{voteFailedMessage}</p>
-          )}
-        </div>
-      </section>
     </>
   );
 };

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { voteArticle } from "../../api";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import ArticleCardActionComponent from "./ArticleCardActionComponent";
+import ArticleActionComponent from "./ArticleActionComponent";
 import WholeArticleContent from "./WholeArticleContent";
 
 const WholeArticlePage = ({
@@ -19,7 +19,7 @@ const WholeArticlePage = ({
 }) => {
   const [articleComments, setArticleComments] = useState([]);
   const [displayComments, setDisplayComments] = useState(false);
-  const [buttonDisplay, setButtonDisplay] = useState("Display Comments");
+  const [buttonDisplay, setButtonDisplay] = useState("View Comments");
   const [commentsFound, setCommentsFound] = useState(true);
   const [isLoadingComments, setIsLoadingComments] = useState(false);
   const [currentVotes, setCurrentVotes] = useState(votes);
@@ -82,7 +82,7 @@ const WholeArticlePage = ({
           setDisplayComments(!displayComments);
           setButtonDisplay(
             buttonDisplay === "Hide comments"
-              ? "Display Comments"
+              ? "View Comments"
               : "Hide comments"
           );
         })
@@ -120,12 +120,18 @@ const WholeArticlePage = ({
         addVote={addVote}
       />
 
-      <ArticleCardActionComponent
+      <ArticleActionComponent
         body={body}
         getArticleComments={getArticleComments}
         isLoadingComments={isLoadingComments}
         buttonDisplay={buttonDisplay}
         openCommentForm={openCommentForm}
+        created_at={created_at}
+        currentVotes={currentVotes}
+        comment_count={comment_count}
+        voteFailed={voteFailed}
+        voteFailedMessage={voteFailedMessage}
+        addVote={addVote}
       />
 
       <CommentForm

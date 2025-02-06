@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { addComment } from "../../api";
 
-const CommentForm = ({
-  commentFormOpen,
-  article_id,
-  handleNewComment,
-  username,
-}) => {
+const CommentForm = ({ article_id, handleNewComment, username }) => {
   const [commentBodyForm, setCommentBodyForm] = useState("");
   const [errorSubmitting, setErrorSubmitting] = useState(false);
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
@@ -37,9 +32,9 @@ const CommentForm = ({
         .then((response) => {
           setErrorSubmitting(false);
           setSuccessfulCommentPost(true);
-          setCommentBodyForm(""); 
+          setCommentBodyForm("");
           const newComment = response.data[0];
-          handleNewComment(newComment); 
+          handleNewComment(newComment);
         })
         .catch((err) => {
           setErrorSubmitting(true);
@@ -53,24 +48,23 @@ const CommentForm = ({
     }
   };
 
-  if (!commentFormOpen) {
-    return null;
-  }
+  // if (!commentFormOpen) {
+  //   return null;
+  // }
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
-      
-      <div className="mb-4">
+    <div className="rounded-lg w-full mx-auto">
+      <div className="">
         <textarea
           id="body-input"
           value={commentBodyForm}
           onChange={handleCommentBodyChange}
           placeholder="Write your comment..."
-          className="w-full p-2 border border-gray-300 rounded-lg resize-none"
+          className="w-full h-20 md:h-40 p-2 rounded-lg resize-none"
           rows="4"
         />
         {commentBodyLabel && (
-          <p className="text-red-500 text-sm mt-2">{commentBodyLabel}</p>
+          <p className="text-red-500 text-xl mt-2">{commentBodyLabel}</p>
         )}
       </div>
 
@@ -86,12 +80,16 @@ const CommentForm = ({
         </p>
       )}
 
-      <div className="flex justify-center text-black-500">
+      <div className="flex justify-end text-black-500">
         <button
           onClick={submitComment}
           disabled={submitButtonDisabled}
-          className={`px-6 py-2 text-black rounded-lg w-full max-w-xs mt-4 
-            ${submitButtonDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-buttonpink'} 
+          className={`py-2 text-black rounded-lg text-xs bg-white border-2 border-listcolor hover:bg-listcolor
+            ${
+              submitButtonDisabled
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-cardcolor"
+            } 
             transition-all`}
         >
           Submit Comment
@@ -102,4 +100,3 @@ const CommentForm = ({
 };
 
 export default CommentForm;
-3
