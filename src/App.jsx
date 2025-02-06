@@ -26,11 +26,7 @@ function App() {
     <>
       <div className="app-container w-full">
         <Header selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
-        <Nav
-          topics={topics}
-          selectedUser={selectedUser}
-          setSelectedUser={setSelectedUser}
-        />
+        <Nav topics={topics} />
         <Routes>
           <Route path="/" element={<Display />} />
           <Route path="*" element={<NotFoundPage />} />
