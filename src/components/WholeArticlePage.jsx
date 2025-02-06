@@ -96,7 +96,7 @@ const WholeArticlePage = ({
       setCommentsFound(true);
       setDisplayComments(!displayComments);
       setButtonDisplay(
-        buttonDisplay === "Hide comments" ? "Display Comments" : "Hide comments"
+        buttonDisplay === "Hide comments" ? "View Comments" : "Hide comments"
       );
     }
   };
