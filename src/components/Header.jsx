@@ -17,6 +17,15 @@ const Header = ({ selectedUser, setSelectedUser }) => {
       });
   }, []);
 
+  const toggleDropdown = () => {
+    setShowDropdown((isOpen) => !isOpen);
+  };
+
+  const handleSignOut = () => {
+    setSelectedUser("");
+    setShowDropdown(false);
+  };
+
   return (
     <header className="w-full bg-cardcolor text-left py-3 sm:py-5 md:py-7 flex space-x-4 justify-between items-center">
       <h1 className="px-1 text-lg font-extrabold text-gray-800 sm:text-3xl md:text-3xl border-red-500 tracking-tight">
@@ -32,7 +41,7 @@ const Header = ({ selectedUser, setSelectedUser }) => {
             }
             alt={selectedUser ? `Logged in as ${selectedUser}` : "Login"}
             className="w-6 h-6 md:w-10 md:h-10 lg:w-14 lg:h-14 cursor-pointer hover:opacity-80 transition-all duration-300 ease-in-out"
-            onClick={() => setShowDropdown((prev) => !prev)}
+            onClick={toggleDropdown}
           />
           <span>{selectedUser ? "" : "Sign in"}</span>
 
@@ -45,13 +54,13 @@ const Header = ({ selectedUser, setSelectedUser }) => {
                 <MenuList>
                   {usernames.map((username) => (
                     <MenuItem
+                      className="gap-2"
                       key={username}
                       onClick={() => {
                         setSelectedUser(username);
                         setShowDropdown(false);
                       }}
                     >
-                      {username}
                       <img
                         src={`/assets/${username}.png`}
                         alt={
@@ -62,8 +71,24 @@ const Header = ({ selectedUser, setSelectedUser }) => {
                         className=" w-6 h-6 md:w-12 md:h-12 lg:w-15 lg:h-15 cursor-pointer hover:opacity-80 transition-all duration-300 ease-in-out"
                         onClick={() => setShowDropdown((prev) => !prev)}
                       />
+                      {username}
                     </MenuItem>
                   ))}
+                  {selectedUser && (
+                    <MenuItem key="signout" onClick={handleSignOut}>
+                      <img
+                        src="/assets/signout.png"
+                        alt={
+                          selectedUser
+                            ? `Logged in as ${selectedUser}`
+                            : "Login"
+                        }
+                        className=" w-6 h-6 md:w-12 md:h-12 lg:w-15 lg:h-15 cursor-pointer hover:opacity-80 transition-all duration-300 ease-in-out mr-2"
+                        onClick={() => setShowDropdown((prev) => !prev)}
+                      />
+                      <div> Sign Out</div>
+                    </MenuItem>
+                  )}
                 </MenuList>
               </Paper>
             </ClickAwayListener>
