@@ -1,88 +1,97 @@
 import { useState } from "react";
+import { ClickAwayListener } from "@mui/material";
 
-const DropDown = ({
-  setArticlesData,
-  setCommentCountSelected,
-  articlesData,
-}) => {
-  const [sortBySelected, setSortBySelected] = useState("created_at");
-  const [orderSelected, setOrderSelected] = useState("DESC");
+const DropDown = ({ setArticlesData, articlesData }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleOrderChange = (event) => {
-    const value = event.target.value;
-    setOrderSelected(value);
-
-    const sortedArticles = [...articlesData].sort((a, b) => {
-      if (sortBySelected === "comment_count") {
-        return value === "ASC"
-          ? a.comment_count - b.comment_count
-          : b.comment_count - a.comment_count;
-      } else if (sortBySelected === "created_at") {
-        return value === "ASC"
-          ? new Date(a.created_at) - new Date(b.created_at)
-          : new Date(b.created_at) - new Date(a.created_at);
-      } else if (sortBySelected === "votes") {
-        return value === "ASC" ? a.votes - b.votes : b.votes - a.votes;
-      }
-      return 0;
-    });
-
-    setArticlesData(sortedArticles);
+  const toggleDropdown = () => {
+    setShowDropdown((prev) => !prev);
   };
 
-  const handleSortChange = (event) => {
-    const value = event.target.value;
-    setSortBySelected(value);
-
-    if (value === "comment_count") {
-      setCommentCountSelected(true);
-    } else {
-      setCommentCountSelected(false);
-    }
+  const handleSortChange = (option) => {
+    setShowDropdown(false);
 
     const sortedArticles = [...articlesData].sort((a, b) => {
-      if (value === "comment_count") {
-        return orderSelected === "ASC"
-          ? a.comment_count - b.comment_count
-          : b.comment_count - a.comment_count;
-      } else if (value === "created_at") {
-        return orderSelected === "ASC"
-          ? new Date(a.created_at) - new Date(b.created_at)
-          : new Date(b.created_at) - new Date(a.created_at);
-      } else if (value === "votes") {
-        return orderSelected === "ASC" ? a.votes - b.votes : b.votes - a.votes;
+      switch (option) {
+        case "date_desc":
+          return new Date(b.created_at) - new Date(a.created_at);
+        case "date_asc":
+          return new Date(a.created_at) - new Date(b.created_at);
+        case "comments_desc":
+          return b.comment_count - a.comment_count;
+        case "comments_asc":
+          return a.comment_count - b.comment_count;
+        case "votes_desc":
+          return b.votes - a.votes;
+        case "votes_asc":
+          return a.votes - b.votes;
+        default:
+          return 0;
       }
-      return 0;
     });
 
     setArticlesData(sortedArticles);
   };
 
   return (
-    <div className="flex flex-row flex-wrap items-center justify-center bg-bgcolor rounded-2xl p-4 w-full">
-      <div className="flex flex-col items-center mx-4">
-        <label className="text-black text-center font-medium">Sort By</label>
-        <select
-          value={sortBySelected}
-          onChange={handleSortChange}
-          className="w-48 p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        >
-          <option value="created_at">Date</option>
-          <option value="comment_count">Comments</option>
-          <option value="votes">Votes</option>
-        </select>
-      </div>
-      <div className="flex flex-col items-center mx-4">
-        <label className="text-black text-center font-medium">Order</label>
-        <select
-          value={orderSelected}
-          onChange={handleOrderChange}
-          className="w-48 p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        >
-          <option value="ASC">Ascending</option>
-          <option value="DESC">Descending</option>
-        </select>
-      </div>
+    <div className="bg-bgcolor flex justify-end pr-4 items-center relative">
+      <span
+        className="text-sm md:text-xl font-semibold mr-2 cursor-pointer hover:text-cardcolor"
+        onClick={toggleDropdown}
+      >
+        Sort
+      </span>
+      <img
+        src="/assets/sort.png"
+        alt="Sort"
+        className="w-[4vw] h-[4vw] md:w-[2rem] md:h-[2rem] min-w-[1rem] min-h-[1rem] cursor-pointer hover:opacity-50 transition-all duration-300 ease-in-out"
+        onClick={toggleDropdown}
+      />
+
+      {showDropdown && (
+        <ClickAwayListener onClickAway={() => setShowDropdown(false)}>
+          <div className="absolute right-0 top-5 md:top-9 mt-2 bg-white border rounded-md shadow-md w-42 md:w-66 z-50 transition-all duration-300 ease-in-out">
+            <ul className="text-xs md:text-base text-left">
+              <li
+                className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleSortChange("date_desc")}
+              >
+                Date: Newest to Oldest
+              </li>
+              <li
+                className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleSortChange("date_asc")}
+              >
+                Date: Oldest to Newest
+              </li>
+              <li
+                className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleSortChange("comments_desc")}
+              >
+                Comments: Most to Least
+              </li>
+              <li
+                className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleSortChange("comments_asc")}
+              >
+                Comments: Least to Most
+              </li>
+              <li
+                className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleSortChange("votes_desc")}
+              >
+                Votes: Most to Least
+              </li>
+              <li
+                className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleSortChange("votes_asc")}
+              >
+                Votes: Least to Most
+              </li>
+            </ul>
+          </div>
+        </ClickAwayListener>
+      )}
     </div>
   );
 };

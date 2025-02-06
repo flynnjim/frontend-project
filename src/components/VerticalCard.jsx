@@ -13,12 +13,12 @@ const VerticalCard = ({
   const formatDate = new Date(created_at)
     .toString()
     .split(" ")
-    .slice(0, 1)
+    .slice(1, 2)
     .join(" ");
 
   return (
     <section className="w-full overflow-hidden bg-bgcolor p-2 pt-4">
-      <div className="relative w-full aspect-[16/9]">
+      <div className="relative w-full h-full">
         <Link to={`/articles/${article_id}`}>
           <img
             src={article_img_url}
@@ -48,7 +48,7 @@ const VerticalCard = ({
           <span className="font-semibold">👍</span> {votes}
         </p>
       </div>
-      <div className="text-left ml-2">{author}</div>
+      {/* <div className="text-left ml-2">{author}</div> */}
     </section>
   );
 };
