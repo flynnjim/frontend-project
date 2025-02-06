@@ -81,9 +81,9 @@ const WholeArticlePage = ({
           setCommentsNotLoaded(false);
           setDisplayComments(!displayComments);
           setButtonDisplay(
-            buttonDisplay === "Hide comments"
+            buttonDisplay === "Hide Comments"
               ? "View Comments"
-              : "Hide comments"
+              : "Hide Comments"
           );
         })
         .catch((err) => {
@@ -96,7 +96,7 @@ const WholeArticlePage = ({
       setCommentsFound(true);
       setDisplayComments(!displayComments);
       setButtonDisplay(
-        buttonDisplay === "Hide comments" ? "View Comments" : "Hide comments"
+        buttonDisplay === "Hide Comments" ? "View Comments" : "Hide Comments"
       );
     }
   };
