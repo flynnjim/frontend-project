@@ -14,7 +14,7 @@ const HorizontalCard = ({
   const formatDate = new Date(created_at)
     .toString()
     .split(" ")
-    .slice(0, 1)
+    .slice(1, 2)
     .join(" ");
 
   // console.log(position);

@@ -50,7 +50,7 @@ const Display = () => {
   const isLarge = width >= 1024;
 
   const firstArray = isLarge
-    ? articlesData.slice(1, 4)
+    ? articlesData.slice(1, 7)
     : articlesData.slice(1, 3);
 
   const secondArray = isLarge ? articlesData.slice(4) : articlesData.slice(3);
@@ -84,9 +84,16 @@ const Display = () => {
           <NotFoundPage />
         ) : (
           <>
+            <div className="justify-end">
+              <DropDown
+                setArticlesData={setArticlesData}
+                setCommentCountSelected={setCommentCountSelected}
+                articlesData={articlesData}
+              />
+            </div>
             <div className="grid grid-cols-2 gap-2 md:gap-6 md:grid-cols-4 lg:grid-cols-6 bg-bgcolor ">
               <ul className="col-span-2 md:col-span-2 lg:col-span-3  md:row-span-2 divide-y divide-black-100 border-b-2 border-black-100">
-                <div className="col-span-2 md:col-span-3 bg-red">
+                <div className="col-span-2 md:col-span-3 bg-red md:text-xl lg:text-4xl">
                   <li key={articlesData[0].article_id}>
                     <VerticalCard
                       article_img_url={articlesData[0].article_img_url}
@@ -105,7 +112,7 @@ const Display = () => {
               {firstArray.map((article, i) => (
                 <div
                   key={article.article_id}
-                  className="row-span-2 md:row-span-1 lg:row-span-2 lg:col-span-1 divide-y divide-black-100 md:col-span-2 border-b-2 border-black-100"
+                  className="row-span-2 md:row-span-1 lg:row-span-1 lg:col-span-1 divide-y divide-black-100 md:col-span-2 border-b-2 border-black-100"
                 >
                   {isLarge || isSmall ? (
                     <VerticalCard
