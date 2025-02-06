@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
 import Display from "./components/Display";
-import ArticleSingleCard from "./components/ArticleSingleCard";
+import SingleArticle from "./components/SingleArticle";
 import NotFoundPage from "./components/NotFoundPage";
 import { useEffect, useState } from "react";
 import { getTopics } from "../api";
@@ -35,7 +35,7 @@ function App() {
             path="articles/:article_id"
             element={
               <>
-                <ArticleSingleCard selectedUser={selectedUser} />
+                <SingleArticle selectedUser={selectedUser} />
               </>
             }
           />

@@ -4,7 +4,7 @@ import { getCurrentArticle } from "../../api";
 import NotFoundPage from "./NotFoundPage";
 import WholeArticlePage from "./WholeArticlePage";
 
-const ArticleSingleCard = ({selectedUser}) => {
+const SingleArticle = ({ selectedUser }) => {
   const [currentArticle, setCurrentArticle] = useState({
     article_img_url:
       "https://res.cloudinary.com/cloudinary-marketing/images/w_1540,h_1083/f_auto,q_auto/v1649725549/Web_Assets/blog/loading-645268_1280/loading-645268_1280-jpg?_i=AA",
@@ -16,7 +16,6 @@ const ArticleSingleCard = ({selectedUser}) => {
     article_id: "",
     votes: 0,
   });
-
 
   const { article_id } = useParams();
 
@@ -78,7 +77,7 @@ const ArticleSingleCard = ({selectedUser}) => {
           <NotFoundPage />
         ) : (
           <WholeArticlePage
-          selectedUser={selectedUser}
+            selectedUser={selectedUser}
             article_img_url={currentArticle.article_img_url}
             author={currentArticle.author}
             comment_count={currentArticle.comment_count}
@@ -95,4 +94,4 @@ const ArticleSingleCard = ({selectedUser}) => {
   }
 };
 
-export default ArticleSingleCard;
+export default SingleArticle;
