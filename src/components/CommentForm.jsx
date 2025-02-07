@@ -53,14 +53,14 @@ const CommentForm = ({ article_id, handleNewComment, username }) => {
   // }
 
   return (
-    <div className="rounded-lg w-full mx-auto">
+    <div className="rounded-lg w-full mx-auto pb-6">
       <div className="">
         <textarea
           id="body-input"
           value={commentBodyForm}
           onChange={handleCommentBodyChange}
           placeholder="Write your comment..."
-          className="w-full h-20 md:h-40 p-2 rounded-lg resize-none"
+          className="w-full h-20 md:h-40 p-2 rounded-lg resize-none border-2 border-black-100 focus:outline-cardcolor focus:ring-0 focus:outline-solid"
           rows="4"
         />
         {commentBodyLabel && (

@@ -27,10 +27,10 @@ const CommentList = ({
               Comment was successfully deleted
             </p>
           )}
-
-          <ul id="item-list" className="space-y-4 mt-4">
+          <div>
+            {/* <ul id="item-list" className="space-y-4 mt- flex"> */}
             {articleComments.map((comment) => (
-              <li key={comment.comment_id}>
+              <div className="mt-2 flex" key={comment.comment_id}>
                 <CommentCard
                   article_id={comment.article_id}
                   author={comment.author}
@@ -43,9 +43,10 @@ const CommentList = ({
                   handleRemoveContentDisplay={handleRemoveContentDisplay}
                   selectedUser={selectedUser}
                 />
-              </li>
+              </div>
             ))}
-          </ul>
+            {/* </ul> */}
+          </div>
         </>
       )}
     </>

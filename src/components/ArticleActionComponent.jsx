@@ -42,7 +42,7 @@ const ArticleActionComponent = ({
   return (
     <section className="rounded-lg p-2 w-full">
       <section className="bg-bgcolor rounded-md mt-6 text-xs">
-        <div className="flex flex-wrap justify-between items-center">
+        <div className="flex flex-wrap justify-left gap-4 items-center">
           <p className="md:text-2xl lg:text-3xl xl:text-4xl text-gray-700 mb-2">
             <span className="font-semibold"></span>🕒 {formatDate}
           </p>
