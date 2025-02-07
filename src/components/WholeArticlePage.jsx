@@ -5,6 +5,8 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import ArticleActionComponent from "./ArticleActionComponent";
 import WholeArticleContent from "./WholeArticleContent";
+import Trending from "./Trending";
+import { useEffect } from "react";
 
 const WholeArticlePage = ({
   selectedUser,
@@ -105,52 +107,75 @@ const WholeArticlePage = ({
     setArticleComments((comments) => [newComment, ...comments]);
   };
 
+  const useWindowWidth = () => {
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return width;
+  };
+
+  const width = useWindowWidth();
+  const isSmall = width < 768;
+  const isMedium = width >= 768 && width < 1024;
+  const isLarge = width >= 1024;
+
   return (
-    <section className="rounded-lg overflow-hidden bg-bgcolor p-4">
-      <WholeArticleContent
-        title={title}
-        article_img_url={article_img_url}
-        author={author}
-        comment_count={comment_count}
-        created_at={created_at}
-        currentVotes={currentVotes}
-        voteFailed={voteFailed}
-        voteFailedMessage={voteFailedMessage}
-        body={body}
-        addVote={addVote}
-      />
+    <section className="rounded-lg overflow-hidden bg-bgcolor p-4 grid grid-cols-1 lg:grid-cols-[1fr,200px] lg:gap-40">
+      <div className="">
+        <WholeArticleContent
+          title={title}
+          article_img_url={article_img_url}
+          author={author}
+          comment_count={comment_count}
+          created_at={created_at}
+          currentVotes={currentVotes}
+          voteFailed={voteFailed}
+          voteFailedMessage={voteFailedMessage}
+          body={body}
+          addVote={addVote}
+          isLarge={isLarge}
+        />
 
-      <ArticleActionComponent
-        body={body}
-        getArticleComments={getArticleComments}
-        isLoadingComments={isLoadingComments}
-        buttonDisplay={buttonDisplay}
-        openCommentForm={openCommentForm}
-        created_at={created_at}
-        currentVotes={currentVotes}
-        comment_count={comment_count}
-        voteFailed={voteFailed}
-        voteFailedMessage={voteFailedMessage}
-        addVote={addVote}
-      />
+        <ArticleActionComponent
+          body={body}
+          getArticleComments={getArticleComments}
+          isLoadingComments={isLoadingComments}
+          buttonDisplay={buttonDisplay}
+          openCommentForm={openCommentForm}
+          created_at={created_at}
+          currentVotes={currentVotes}
+          comment_count={comment_count}
+          voteFailed={voteFailed}
+          voteFailedMessage={voteFailedMessage}
+          addVote={addVote}
+        />
 
-      <CommentForm
-        commentFormOpen={commentFormOpen}
-        article_id={article_id}
-        handleNewComment={handleNewComment}
-        username={username}
-      />
+        <CommentForm
+          commentFormOpen={commentFormOpen}
+          article_id={article_id}
+          handleNewComment={handleNewComment}
+          username={username}
+        />
 
-      <CommentList
-        articleComments={articleComments}
-        successfulDeletedComment={successfulDeletedComment}
-        isLoadingComments={isLoadingComments}
-        displayComments={displayComments}
-        commentsFound={commentsFound}
-        username={username}
-        handleRemoveContentDisplay={handleRemoveContentDisplay}
-        selectedUser={selectedUser}
-      />
+        <CommentList
+          articleComments={articleComments}
+          successfulDeletedComment={successfulDeletedComment}
+          isLoadingComments={isLoadingComments}
+          displayComments={displayComments}
+          commentsFound={commentsFound}
+          username={username}
+          handleRemoveContentDisplay={handleRemoveContentDisplay}
+          selectedUser={selectedUser}
+        />
+      </div>
+      <div className="">
+        <Trending />
+      </div>
     </section>
   );
 };
