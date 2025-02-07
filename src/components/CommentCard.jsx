@@ -39,41 +39,51 @@ const CommentCard = ({
   const formatDate = new Date(created_at)
     .toString()
     .split(" ")
-    .slice(0, 5)
+    .slice(0, 1)
     .join(" ");
 
   return (
-    <div className="m-2 p-6 rounded-lg shadow-lg mb-4 w-[250px] h-[450px] border-4 border-cardcolor bg-color">
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold">{author} ✍️</h3>
-        <p className="text-sm text-gray-500">{formatDate} GMT 🕒</p>
-        <p className="text-sm text-gray-500">{votes} 👍</p>
-      </div>
+    <div className="p-2 mb-2 w-full  bg-color border-b-2 border-black-100 grid grid-cols-[auto,4fr]">
+      <img
+        src={`/assets/${author}.png`}
+        // alt={selectedUser ? `Logged in as ${selectedUser}` : "Login"}
+        className=" w-10 h-10 m-2 mr-4 md:w-12 md:h-12 lg:w-15 lg:h-15 cursor-pointer hover:opacity-80 transition-all duration-300 ease-in-out"
+      />
+      <div>
+        <div className="flex gap-2 justify-between">
+          <h3 className="text-sm font-semibold">{author}</h3>
+          <p className="text-sm text-gray-500">🕒 {formatDate}</p>
+        </div>
 
-      <div className="mb-4">
-        <p className="text-sm text-gray-700">{body}</p>
-      </div>
+        <div className="mb-4 mt-2 text-left flex flex-col gap-2">
+          <p className="text-sm text-gray-700">{body}</p>
+          <p className="text-sm text-gray-500">👍 {votes}</p>
+        </div>
+        <div className="flex justify-evenly"></div>
 
-      {selectedUser === author && (
-        <div className="mt-4">
-          <button
-            onClick={deleteThisComment}
-            disabled={deleteButtonDisabled}
-            className={`px-4 py-2 text-white rounded-lg 
+        <div className="flex gap-2 justify-end">
+          {selectedUser === author && (
+            <div className="">
+              <button
+                onClick={deleteThisComment}
+                disabled={deleteButtonDisabled}
+                className={` px-1 py-1 text-white text-xs rounded-md
               ${
                 deleteButtonDisabled
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-red-500 hover:bg-red-600"
+                  : "bg-red-500 hover:bg-red-800"
               } 
               transition-all`}
-          >
-            Delete Comment
-          </button>
-          {deleteLabel && (
-            <p className="text-red-500 text-sm mt-2">{deleteLabel}</p>
+              >
+                Delete Comment
+              </button>
+              {deleteLabel && (
+                <p className="text-red-500 text-xs">{deleteLabel}</p>
+              )}
+            </div>
           )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
