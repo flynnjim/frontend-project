@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const ArticleActionComponent = ({
-  body,
   getArticleComments,
   isLoadingComments,
   buttonDisplay,
@@ -41,10 +40,10 @@ const ArticleActionComponent = ({
 
   return (
     <section className="rounded-lg p-2 w-full">
-      <section className="bg-bgcolor rounded-md mt-6 text-xs">
-        <div className="flex flex-wrap justify-left gap-4 items-center">
+      <section className="bg-bgcolor rounded-md mt-6 text-sm">
+        <div className="flex flex-wrap justify-left gap-2 md:gap-8 lg:gap-10 items-center">
           <p className="md:text-2xl lg:text-3xl xl:text-4xl text-gray-700 mb-2">
-            <span className="font-semibold"></span>🕒 {formatDate}
+            🕒 {formatDate}
           </p>
 
           <p
@@ -53,7 +52,7 @@ const ArticleActionComponent = ({
             }`}
             onClick={handleVote}
           >
-            <span className="font-semibold">👍 </span>
+            👍
             {isVoting ? "Voting..." : currentVotes} Vote
           </p>
           <p
@@ -64,8 +63,7 @@ const ArticleActionComponent = ({
             }}
             disabled={isLoadingComments}
           >
-            <span className="font-semibold"></span>💬 {buttonDisplay} |{" "}
-            {comment_count}
+            💬 {buttonDisplay} | {comment_count}
           </p>
           {voteFailed && (
             <p className="text-sm text-red-500 mt-4">{voteFailedMessage}</p>

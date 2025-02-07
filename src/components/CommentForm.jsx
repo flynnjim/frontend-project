@@ -48,28 +48,27 @@ const CommentForm = ({ article_id, handleNewComment, username }) => {
     }
   };
 
-  // if (!commentFormOpen) {
-  //   return null;
-  // }
-
   return (
     <div className="rounded-lg w-full mx-auto pb-6">
       <div className="">
         <textarea
           id="body-input"
           value={commentBodyForm}
+          aria-label="comment entry form"
           onChange={handleCommentBodyChange}
           placeholder="Write your comment..."
           className="w-full h-20 md:h-40 p-2 rounded-lg resize-none border-2 border-black-100 focus:outline-cardcolor focus:ring-0 focus:outline-solid"
           rows="4"
         />
-        {commentBodyLabel && (
-          <p className="text-red-500 text-xl mt-2">{commentBodyLabel}</p>
+        {commentBodyLabel && username && (
+          <p className="text-red-500 text-sm mt-2 text-left">
+            {commentBodyLabel}
+          </p>
         )}
       </div>
 
       {errorSubmitting && (
-        <p className="text-red-500 text-sm mb-4">
+        <p className="text-red-500 text-sm mb-4 text-left">
           Error submitting the comment. Please ensure you are logged in.
         </p>
       )}
