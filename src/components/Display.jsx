@@ -53,7 +53,7 @@ const Display = () => {
     ? articlesData.slice(1, 7)
     : articlesData.slice(1, 3);
 
-  const secondArray = isLarge ? articlesData.slice(4) : articlesData.slice(3);
+  const secondArray = isLarge ? articlesData.slice(7) : articlesData.slice(3);
 
   useEffect(() => {
     setIsPageLoading(true);

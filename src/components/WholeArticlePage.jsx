@@ -3,8 +3,8 @@ import { useState } from "react";
 import { voteArticle } from "../../api";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import ArticleActionComponent from "./ArticleActionComponent";
-import WholeArticleContent from "./WholeArticleContent";
+import VoteArticle from "./VoteArticle";
+import ArticleContent from "./ArticleContent";
 import Trending from "./Trending";
 import { useEffect } from "react";
 
@@ -127,7 +127,7 @@ const WholeArticlePage = ({
   return (
     <section className="rounded-lg overflow-hidden bg-bgcolor p-4 grid grid-cols-1 lg:grid-cols-[1fr,200px] lg:gap-40">
       <div className="">
-        <WholeArticleContent
+        <ArticleContent
           title={title}
           article_img_url={article_img_url}
           author={author}
@@ -141,7 +141,7 @@ const WholeArticlePage = ({
           isLarge={isLarge}
         />
 
-        <ArticleActionComponent
+        <VoteArticle
           body={body}
           getArticleComments={getArticleComments}
           isLoadingComments={isLoadingComments}

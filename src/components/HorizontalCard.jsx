@@ -36,7 +36,7 @@ const HorizontalCard = ({
 
           <div className="bg-bgcolor py-2 p-2 left-0 flex gap-2 justify-start">
             <p className="text-sm text-gray-700">
-              <h1 className="font-semibold">💬</h1> {comment_count}
+              <span className="font-semibold">💬</span> {comment_count}
             </p>
             <p className="text-sm text-gray-700">
               <span className="font-semibold">🕒</span> {formatDate}
